@@ -1,0 +1,17 @@
+﻿<Page
+    x:Class="AppInstallerCaller.MainPage"
+    xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+    xmlns:local="using:AppInstallerCaller"
+    xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
+    xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+    mc:Ignorable="d">
+
+    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
+            <Button x:Name="installButton" Click="InstallButtonClickHandler" HorizontalAlignment="Center">Install</Button>
+        </StackPanel>
+        <ProgressBar x:Name="installProgressBar" Value="0" Maximum="100" Width="200px" Margin="12" ></ProgressBar>
+        <TextBlock x:Name="installStatusText" Text="" HorizontalAlignment="Center"></TextBlock>
+    </StackPanel>
+</Page>

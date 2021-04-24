@@ -1,0 +1,664 @@
+﻿#include "pch.h"
+#include "MainPage.h"
+#include "MainPage.g.cpp"
+
+
+#pragma region Added code for calling appinstaller
+#include <wrl.h>
+//#include <winrt\Microsoft.Management.Deployment.Client.h>
+#include "GeneratedFromServer\Microsoft.Management.Deployment.h"
+#include <winrt/Windows.UI.Core.h>
+
+using namespace Microsoft::WRL;
+using namespace std::chrono_literals;
+//using namespace winrt::Microsoft::Management::Deployment::Client;
+using namespace winrt::Microsoft::Management::Deployment;
+
+GUID CLSID_WinGet = { 0xC53A4F16, 0x787E, 0x42A4, { 0xB3, 0x04, 0x29, 0xEF, 0xFB, 0x4B, 0xF5, 0x97 } };
+
+GUID CLSID_InstallOptions = { 0x1095F097, 0xEB96, 0x453B, { 0xB4, 0xE6, 0x16, 0x13, 0x63, 0x7F, 0x3B, 0x14 } };
+
+namespace winrt
+{
+    using namespace Windows::UI::Xaml;
+    using namespace Windows::Foundation;
+    using namespace Windows::Foundation::Collections;
+}
+
+namespace abi
+{
+    using namespace ABI::Windows::Foundation;
+    using namespace ABI::Microsoft::Management::Deployment;
+};
+#pragma endregion
+
+
+namespace winrt::AppInstallerCaller::implementation
+{
+    MainPage::MainPage()
+    {
+        InitializeComponent();
+        InitializeUI();
+    }
+
+    AppInstaller CreateAppInstaller()
+    {
+        com_ptr<abi::IAppInstaller> abiAppInstaller = nullptr;
+        check_hresult(CoCreateInstance(CLSID_WinGet, nullptr, CLSCTX_LOCAL_SERVER, IID_PPV_ARGS(abiAppInstaller.put())));
+        check_pointer(abiAppInstaller.get());
+        AppInstaller appInstaller{ abiAppInstaller.as<AppInstaller>() };
+        //AppInstaller appInstaller{};
+        return appInstaller;
+    }
+
+    InstallOptions CreateInstallOptions()
+    {
+        com_ptr<abi::IInstallOptions> abiInstallOptions = nullptr;
+        check_hresult(CoCreateInstance(CLSID_InstallOptions, nullptr, CLSCTX_LOCAL_SERVER, IID_PPV_ARGS(abiInstallOptions.put())));
+        check_pointer(abiInstallOptions.get());
+        InstallOptions installOptions{ abiInstallOptions.as<winrt::Microsoft::Management::Deployment::InstallOptions>() };
+        //InstallOptions installOptions{};
+        return installOptions;
+    }
+    /*FindPackagesOptions CreateFindOptions()
+    {
+        /*com_ptr<abi::IFindPackagesOptions> abifindOptions = nullptr;
+        check_hresult(CoCreateInstance(__uuidof(abi::IFindPackagesOptions), nullptr, CLSCTX_LOCAL_SERVER, IID_PPV_ARGS(abifindOptions.put())));
+        check_pointer(abifindOptions.get());
+        FindPackagesOptions findPackagesOptions{ abifindOptions.as<FindPackagesOptions>() };
+        FindPackagesOptions findPackagesOptions{};
+        return findPackagesOptions;
+    }
+    GetCompositeAppCatalogOptions CreateGetCompositeAppCatalogOptions()
+    {
+        com_ptr<abi::IGetCompositeAppCatalogOptions> abiGetCompositeAppCatalogOptions = nullptr;
+        check_hresult(CoCreateInstance(__uuidof(abi::IGetCompositeAppCatalogOptions), nullptr, CLSCTX_LOCAL_SERVER, IID_PPV_ARGS(abiGetCompositeAppCatalogOptions.put())));
+        check_pointer(abiGetCompositeAppCatalogOptions.get());
+        GetCompositeAppCatalogOptions getCompositeAppCatalogOptions{ abiGetCompositeAppCatalogOptions.as<GetCompositeAppCatalogOptions>() };
+        //GetCompositeAppCatalogOptions getCompositeAppCatalogOptions{};
+        return getCompositeAppCatalogOptions;
+    }
+
+    IAsyncOperation<AppCatalog> FindDefaultSource()
+    {
+        AppInstaller appInstaller = CreateAppInstaller();
+
+        winrt::IVectorView<AppCatalog> catalogs{ co_await appInstaller.GetAppCatalogsAsync() };
+        for (AppCatalog catalog : catalogs)
+        {
+            if (catalog.Details().Origin == AppCatalogOrigin::Default)
+            {
+                co_return catalog;
+            }
+        }
+        winrt::throw_hresult(E_UNEXPECTED);
+    }
+
+    IAsyncOperation<AppCatalog> FindSource(std::wstring packageSource)
+    {
+        AppInstaller appInstaller = CreateAppInstaller();
+        AppCatalog catalog{ co_await appInstaller.GetAppCatalogAsync(packageSource) };
+        co_await catalog.OpenAsync();
+        co_return catalog;
+    }
+
+    IAsyncOperation<Package> FindPackageInCatalog(AppCatalog catalog, std::wstring packageId)
+    {
+        FindPackagesOptions findPackagesOptions = CreateFindOptions();
+        PackageMatchFilter filter;
+        filter.IsAdditive = true;
+        filter.Field = PackageMatchField::Id;
+        filter.Type = MatchType::Exact;
+        filter.Value = packageId;
+        findPackagesOptions.Filters().Append(filter);
+        FindPackagesResult findPackagesResult{ co_await catalog.FindPackagesAsync(findPackagesOptions) };
+
+        winrt::IVectorView<ResultMatch> matches = findPackagesResult.Matches();
+        co_return matches.GetAt(0).Package();
+    }*/
+
+    IAsyncOperationWithProgress<InstallResult, InstallProgress> InstallPackage()
+    {
+        AppInstaller appInstaller = CreateAppInstaller();
+        InstallOptions installOptions = CreateInstallOptions();
+
+        installOptions.InstallScope(InstallScope::User);
+        //installOptions.Package(package);
+        hstring idHstring{ L"VideoLAN.VLC" };
+        PackageUniqueId uniqueId = PackageUniqueId();
+
+        //hstring sourceHstring{ L"winget" };
+        //uniqueId.Source = static_cast<HSTRING>(get_abi(sourceHstring));
+        //uniqueId.Id = static_cast<HSTRING>(get_abi(idHstring));
+        uniqueId.Source = L"Winget";
+        uniqueId.Id = L"VideoLAN.VLC";
+        installOptions.Id(uniqueId);
+
+        return appInstaller.InstallPackageAsync(installOptions);
+    }
+
+    IAsyncAction UpdateUIProgress(InstallProgress progress, winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar, winrt::Windows::UI::Xaml::Controls::TextBlock statusText)
+    {
+        UINT32 downloaded = progress.BytesDownloaded;
+        UINT32 required = progress.BytesRequired;
+        UINT32 percentage = progress.DownloadPercentage;
+        InstallProgressState state = progress.State;
+        co_await winrt::resume_foreground(progressBar.Dispatcher());
+        progressBar.Value(percentage);
+
+        std::wstring downloadText{ L"Downloading." };
+        switch (state)
+        {
+        case InstallProgressState::Queued:
+            statusText.Text(L"Queued");
+            break;
+        case InstallProgressState::Download:
+            //downloadText += downloaded + L" bytes of " + required;
+            statusText.Text(downloadText.c_str());
+            break;
+        case InstallProgressState::Install:
+            statusText.Text(L"Installing");
+            break;
+        case InstallProgressState::PostInstall:
+            statusText.Text(L"Finishing install");
+            break;
+        default:
+            statusText.Text(L"");
+        }
+        co_return;
+    }
+
+    IAsyncAction UpdateUIForInstall(
+        IAsyncOperationWithProgress<InstallResult, InstallProgress> installPackageOperation, 
+        winrt::apartment_context uiThread,
+        winrt::Windows::UI::Xaml::Controls::Button button,
+        winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar, 
+        winrt::Windows::UI::Xaml::Controls::TextBlock statusText)
+    {
+        installPackageOperation.Progress([=](
+            IAsyncOperationWithProgress<InstallResult, InstallProgress> const& /* sender */,
+            InstallProgress const& progress)
+        {
+            UpdateUIProgress(progress, progressBar, statusText).get();
+        });
+
+        winrt::hresult installOperationHr = S_OK;
+        std::wstring errorMessage{ L"Unknown Error" };
+        InstallResult installResult{ nullptr };
+        try
+        {
+            installResult = co_await installPackageOperation;
+        }
+        catch (hresult_canceled const&)
+        {
+            OutputDebugString(L"Operation was cancelled");
+        }
+        catch (winrt::hresult_error const& ex)
+        {
+            // Operation failed
+            // Example: HRESULT_FROM_WIN32(ERROR_DISK_FULL).
+            installOperationHr = ex.code();
+            // Example: "There is not enough space on the disk."
+            errorMessage = ex.message();
+            OutputDebugString(L"Operation failed");
+        }
+
+        // Switch back to ui thread context.
+        co_await uiThread;
+
+        if (installPackageOperation.Status() == AsyncStatus::Canceled)
+        {
+            button.Content(box_value(L"Retry"));
+            statusText.Text(L"Install cancelled.");
+        }
+        if (installPackageOperation.Status() == AsyncStatus::Error || installResult == nullptr)
+        {
+            button.Content(box_value(L"Error"));
+            statusText.Text(errorMessage.c_str());
+        }
+        else if (installResult.RebootRequired())
+        {
+            button.Content(box_value(L"Reboot Required."));
+            statusText.Text(L"Reboot to finish installation.");
+        }
+        else
+        {
+            button.Content(box_value(L"Installed"));
+        }
+    }
+
+    IAsyncAction MainPage::StartInstall(
+        winrt::Windows::UI::Xaml::Controls::Button button,
+        winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar,
+        winrt::Windows::UI::Xaml::Controls::TextBlock statusText)
+    {
+        // Capture the ui thread context.
+        winrt::apartment_context uiThread;
+        co_await winrt::resume_background();
+
+        AppInstaller appInstaller = CreateAppInstaller();
+        //AppCatalog catalog{ co_await appInstaller.GetAppCatalogAsync(PredefinedAppCatalog::OpenWindowsCatalog) };
+        //co_await catalog.OpenAsync();
+        //Package package{ co_await FindPackageInCatalog(catalog, m_installAppId) };
+
+        m_installPackageOperation = InstallPackage();
+        UpdateUIForInstall(m_installPackageOperation, uiThread, button, progressBar, statusText);
+        co_return;
+    }
+
+    /*IAsyncOperation<Package> MainPage::FindPackage()
+    {
+        // Capture the ui thread context.
+        winrt::apartment_context uiThread;
+        co_await winrt::resume_background();
+
+        AppInstaller appInstaller = CreateAppInstaller();
+        AppCatalog catalog{ co_await appInstaller.GetAppCatalogAsync(PredefinedAppCatalog::OpenWindowsCatalog) };
+        co_await catalog.OpenAsync();
+        Package package = { co_await FindPackageInCatalog(catalog, m_installAppId) };
+
+        co_return package;
+    }
+
+    IAsyncAction MainPage::InitializeInstallUI(
+        std::wstring installAppId,
+        winrt::Windows::UI::Xaml::Controls::Button button,
+        winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar,
+        winrt::Windows::UI::Xaml::Controls::TextBlock statusText)
+    {
+        winrt::apartment_context uiThread;
+
+        co_await winrt::resume_background();
+        // Creation of the AppInstaller has to use CoCreateInstance rather than normal winrt initialization since it's created by an out of proc com server.
+        AppInstaller appInstaller = CreateAppInstaller();
+        AppCatalog windowsCatalog{ co_await appInstaller.GetAppCatalogAsync(PredefinedAppCatalog::OpenWindowsCatalog) };
+        co_await windowsCatalog.OpenAsync();
+        AppCatalog installingCatalog{ co_await appInstaller.GetAppCatalogAsync(PredefinedAppCatalog::InstallingPackages) };
+        co_await installingCatalog.OpenAsync();
+        Windows::Foundation::Collections::IVector<AppCatalog> catalogs{ winrt::single_threaded_vector<AppCatalog>() };
+        // Get a composite catalog that allows search of both the OpenWindowsCatalog and InstallingPackages.
+        // Creation of the GetCompositeAppCatalogOptions has to use CoCreateInstance rather than normal winrt initialization since it's created by an out of proc com server.
+        GetCompositeAppCatalogOptions getCompositeAppCatalogOptions = CreateGetCompositeAppCatalogOptions();
+        getCompositeAppCatalogOptions.Catalogs().Append(windowsCatalog);
+        getCompositeAppCatalogOptions.Catalogs().Append(installingCatalog);
+        // Specify that the search behavior is to only query for local packages.
+        // Since the local catalog that is open is InstallingPackages, this will only find a result if installAppId is currently installing.
+        getCompositeAppCatalogOptions.CompositeSearchBehavior(CompositeSearchBehavior::AllLocal);
+        AppCatalog compositeCatalog{ co_await appInstaller.GetCompositeAppCatalogAsync(getCompositeAppCatalogOptions) };
+        co_await compositeCatalog.OpenAsync();
+
+        FindPackagesOptions findPackagesOptions = CreateFindOptions();
+        PackageMatchFilter filter;
+        filter.IsAdditive = true;
+        filter.Field = PackageMatchField::Id;
+        filter.Type = MatchType::Exact;
+        filter.Value = installAppId;
+        findPackagesOptions.Filters().Append(filter);
+        FindPackagesResult findPackagesResult{ co_await compositeCatalog.FindPackagesAsync(findPackagesOptions) };
+        winrt::IVectorView<ResultMatch> matches = findPackagesResult.Matches();
+        Package package = matches.GetAt(0).Package();
+
+        if (package.IsInstalling())
+        {
+            m_installPackageOperation = package.InstallProgress();
+            UpdateUIForInstall(m_installPackageOperation, uiThread, button, progressBar, statusText);
+        }
+    }*/
+
+    void MainPage::InitializeUI()
+    {
+        m_installAppId = L"Microsoft.VSCode";
+        //InitializeInstallUI(m_installAppId, installButton(), installProgressBar(), installStatusText());
+    }
+
+    void MainPage::InstallButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
+    {
+        if (m_installPackageOperation == nullptr)
+        {
+            StartInstall(installButton(), installProgressBar(), installStatusText());
+        }
+    }
+
+    void MainPage::CancelButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
+    {
+        if (m_installPackageOperation)
+        {
+            m_installPackageOperation.Cancel();
+        }
+    }
+
+
+    /*IAsyncAction CancelInstall(
+        std::wstring installAppId)
+    {
+        winrt::apartment_context uiThread;
+
+        co_await winrt::resume_background();
+        // Creation of the AppInstaller has to use CoCreateInstance rather than normal winrt initialization since it's created by an out of proc com server.
+        AppInstaller appInstaller = CreateAppInstaller();
+        AppCatalog windowsCatalog{ co_await appInstaller.GetAppCatalogAsync(PredefinedAppCatalog::OpenWindowsCatalog) };
+        co_await windowsCatalog.OpenAsync();
+        AppCatalog installingCatalog{ co_await appInstaller.GetAppCatalogAsync(PredefinedAppCatalog::InstallingPackages) };
+        co_await installingCatalog.OpenAsync();
+        GetCompositeAppCatalogOptions getCompositeAppCatalogOptions = CreateGetCompositeAppCatalogOptions();
+        getCompositeAppCatalogOptions.Catalogs().Append(windowsCatalog);
+        getCompositeAppCatalogOptions.Catalogs().Append(installingCatalog);
+        // Specify that the search behavior is to only query for local packages.
+        // Since the local catalog that is open is InstallingPackages, this will only find a result if installAppId is currently installing.
+        getCompositeAppCatalogOptions.CompositeSearchBehavior(CompositeSearchBehavior::Installing);
+        AppCatalog compositeCatalog{ co_await appInstaller.GetCompositeAppCatalogAsync(getCompositeAppCatalogOptions) };
+        co_await compositeCatalog.OpenAsync();
+
+        FindPackagesOptions findPackagesOptions = CreateFindOptions();
+        PackageMatchFilter filter;
+        filter.IsAdditive = true;
+        filter.Field = PackageMatchField::Id;
+        filter.Type = MatchType::Exact;
+        filter.Value = installAppId;
+        findPackagesOptions.Filters().Append(filter);
+        FindPackagesResult findPackagesResult{ co_await compositeCatalog.FindPackagesAsync(findPackagesOptions) };
+        winrt::IVectorView<ResultMatch> matches = findPackagesResult.Matches();
+        Package package = matches.GetAt(0).Package();
+
+        if (package.IsInstalling())
+        {
+            Windows::Foundation::IAsyncOperationWithProgress<InstallResult, InstallProgress> installOperation = package.InstallProgress();
+            installOperation.Cancel();
+        }
+    }*/
+
+
+    /*
+    */
+
+
+    //PackageUniqueId uniqueId{ L"winget", L"VideoLAN.VLC", L"", L"" };
+    //winrt::Microsoft::Management::Deployment::PackageUniqueId uniqueId{ L"SFEdge", L"XPAXGTJ6R7KVDL", L"", L"" };
+    //winrt::Microsoft::Management::Deployment::PackageUniqueId uniqueId{ L"RestSource", L"Microsoft.Powertoys", L"", L"" };
+    //installerOptions.Id(uniqueId);
+    // 
+    // 
+    //IAsyncAction InstallPackageWinrtClient()
+    //{
+    //    //co_await winrt::resume_background();
+    //    winrt::Microsoft::Management::Deployment::Client::AppInstaller appInstaller;
+
+    //    winrt::Microsoft::Management::Deployment::Client::InstallOptions installerOptions;
+    //    installerOptions.InstallScope(winrt::Microsoft::Management::Deployment::Client::InstallScope::User);
+
+    //    winrt::Microsoft::Management::Deployment::Client::PackageUniqueId uniqueId{ L"RestSource", L"Microsoft.Powertoys", L"", L"" };
+    //    installerOptions.Id(uniqueId);
+
+    //    auto async_op_with_progress = appInstaller.InstallPackageAsync(installerOptions);
+
+    //    async_op_with_progress.Progress(
+    //        [](
+    //            IAsyncOperationWithProgress<winrt::Microsoft::Management::Deployment::Client::InstallResult,
+    //            winrt::Microsoft::Management::Deployment::Client::InstallProgress> const& /* sender */,
+    //            winrt::Microsoft::Management::Deployment::Client::InstallProgress const& args)
+    //    {
+    //        uint32_t bytes_retrieved = args.BytesDownloaded;
+    //        // use bytes_retrieved;
+    //    });
+
+    //    winrt::Microsoft::Management::Deployment::Client::InstallResult result{ co_await async_op_with_progress };
+    //    if (!result.RebootRequired())
+    //    {
+    //        OutputDebugString(L"Reboot wasnt required \n");
+    //    }
+
+    //    OutputDebugString(L"return \n");
+    //    co_return;
+    //}
+
+
+    /*void ProcessFeedAsync()
+    {
+        Uri rssFeedUri{ L"https://blogs.windows.com/feed" };
+        SyndicationClient syndicationClient;
+
+        auto async_op_with_progress = syndicationClient.RetrieveFeedAsync(rssFeedUri);
+
+        async_op_with_progress.Progress(
+            [](
+                IAsyncOperationWithProgress<SyndicationFeed,
+                RetrievalProgress> const& ,
+                RetrievalProgress const& args)
+        {
+            uint32_t bytes_retrieved = args.BytesRetrieved;
+            // use bytes_retrieved;
+        });
+
+        async_op_with_progress.Completed(
+            [](
+                IAsyncOperationWithProgress<SyndicationFeed,
+                RetrievalProgress> const& sender,
+                AsyncStatus const)
+        {
+            SyndicationFeed syndicationFeed = sender.GetResults();
+            // use syndicationFeed;
+        });
+
+        // or (but this function must then be a coroutine, and return IAsyncAction)
+        // SyndicationFeed syndicationFeed{ co_await async_op_with_progress };
+    }
+    IAsyncAction MainAsync()
+    {
+        co_await winrt::resume_background();
+        Uri uri(L"https://kennykerr.ca/feed");
+        SyndicationClient client;
+        SyndicationFeed feed = co_await client.RetrieveFeedAsync(uri);
+        for (auto&& item : feed.Items())
+        {
+            hstring title = item.Title().Text();
+            printf("%ls\n", title.c_str());
+        }
+    }
+    
+    
+namespace abihelper
+{
+    template <typename T>
+    T convert_from_abi(::IUnknown* from)
+    {
+        T to{ nullptr }; // `T` is a projected type.
+
+        winrt::check_hresult(from->QueryInterface(winrt::guid_of<T>(),
+            winrt::put_abi(to)));
+
+        return to;
+    }
+    inline auto put_abi(winrt::hstring& object) noexcept
+    {
+        return reinterpret_cast<HSTRING*>(winrt::put_abi(object));
+    }
+}*/
+
+    //Windows::Foundation::IAsyncAction InstallPackage()
+    //{
+    //    co_await winrt::resume_background();
+        //winrt::Microsoft::Management::Deployment::InstallResult result{ co_await async_op_with_progress };
+        /*if (async_op_with_progress.Status() == AsyncStatus::Canceled)
+        {
+            OutputDebugString(L"Install was cancelled \n");
+        }
+        else if (async_op_with_progress.Status() == AsyncStatus::Error)
+        {
+            OutputDebugString(L"Install was error \n");
+        }
+        else
+        {
+            if (!result.RebootRequired())
+            {
+                OutputDebugString(L"Reboot wasnt required \n");
+            }
+        }
+
+        //winrt::com_ptr<abi::IAppInstaller> winGet = nullptr;
+        //winrt::check_hresult(CoCreateInstance(CLSID_WinGet, nullptr, CLSCTX_LOCAL_SERVER, IID_PPV_ARGS(winGet.put())));
+        //winrt::check_pointer(winGet.get());
+
+        //winrt::com_ptr<abi::IInstallOptions> installOptions = nullptr;
+        //winrt::check_hresult(CoCreateInstance(CLSID_InstallOptions, nullptr, CLSCTX_LOCAL_SERVER, IID_PPV_ARGS(installOptions.put())));
+        //winrt::check_pointer(installOptions.get());
+
+        //installOptions->put_InstallScope(abi::InstallScope::InstallScope_User);
+        //hstring sourceHstring{ L"https://winget.azureedge.net/cache" };
+        //hstring idHstring{ L"VideoLAN.VLC" };
+        //abi::PackageUniqueId uniqueId = abi::PackageUniqueId();
+        //uniqueId.Source = static_cast<HSTRING>(get_abi(sourceHstring));
+        //uniqueId.Id = static_cast<HSTRING>(get_abi(idHstring));
+        //installOptions->put_Id(uniqueId);
+
+        //// showing setting manifest string here for sample purposes only since it's different from the id & source mechanism.
+        //winrt::hstring manifestHstring(L"");
+        //winrt::check_hresult(installOptions->put_Manifest(static_cast<HSTRING>(get_abi(manifestHstring))));
+
+        //// showing getting manifest string for sample purposes.
+        //winrt::hstring manifest;
+        //winrt::check_hresult(installOptions->get_Manifest(abihelper::put_abi(manifest)));
+
+        //winrt::com_ptr<abi::IAsyncOperationWithProgress<abi::InstallResult*, abi::InstallProgress>> installOperation = nullptr;
+        //try
+        //{
+        //    winrt::check_hresult(winGet->InstallPackageAsync(installOptions.get(), installOperation.put()));
+
+        //    winrt::com_ptr<abi::IInstallResult> installResult = nullptr;
+
+        //    auto completedHandler = Callback<Implements<RuntimeClassFlags<ClassicCom>, abi::IAsyncOperationWithProgressCompletedHandler<abi::InstallResult*, abi::InstallProgress>, FtmBase>>(
+        //        [](abi::IAsyncOperationWithProgress<abi::InstallResult*, abi::InstallProgress>* , abi::AsyncStatus ) -> HRESULT
+        //    {
+        //        //::SetEvent(completedEvent.Get());
+        //        return S_OK;
+        //    });
+        //    installOperation->put_Completed(completedHandler.Get());
+
+        //    auto progressHandler = Callback<Implements<RuntimeClassFlags<ClassicCom>, abi::IAsyncOperationProgressHandler<abi::InstallResult*, abi::InstallProgress>, FtmBase>>(
+        //        [](abi::IAsyncOperationWithProgress<abi::InstallResult*, abi::InstallProgress>* , abi::InstallProgress progress) -> HRESULT
+        //    {
+        //        // sample of using progress object
+        //        auto downloaded = progress.DownloadPercentage;
+        //        if (downloaded < 50 && progress.State == abi::InstallProgressState::InstallProgressState_Install)
+        //        {
+        //            return E_FAIL;
+        //        }
+        //        return S_OK;
+        //    });
+        //    installOperation->put_Progress(progressHandler.Get());
+
+        //    HRESULT getResultsResult;
+        //    while ((getResultsResult = installOperation->GetResults(installResult.put())) == E_ILLEGAL_METHOD_CALL)
+        //    {
+        //        // Wait for result to be ready. Should be using completed event instead but the marshalling
+        //        // for completed and progress is broken. Email is out to com team for help investigating.
+        //        ::Sleep(5000);
+        //    }
+        //    if (getResultsResult == S_OK)
+        //    {
+        //        boolean rebootRequired = true;
+        //        installResult->get_RebootRequired(&rebootRequired);
+        //        winrt::check_bool(!rebootRequired);
+        //    }
+        //}
+        //catch (winrt::hresult_error const& ex)
+        //{
+        //    winrt::hstring message = ex.message();
+        //    throw ex;
+        //}*/
+        //co_return;
+    //}
+
+    //winrt::Microsoft::Management::Deployment::InstallResult result = co_await appInstaller.InstallPackageAsync(installerOptions);
+    //if (result.RebootRequired())
+    //{
+    //    wprintf(L"Reboot was required");
+    //}
+
+    //auto installOperation{ appInstaller.InstallPackageAsync(installerOptions) };
+
+
+    //async_op_with_progress.Progress(
+    //    [](
+    //        IAsyncOperationWithProgress<winrt::Microsoft::Management::Deployment::InstallResult,
+    //        winrt::Microsoft::Management::Deployment::InstallProgress> const& /* sender */,
+    //        winrt::Microsoft::Management::Deployment::InstallProgress const& args)
+    //{
+    //    OutputDebugString(L"Got progress callback \n");
+    //    return S_OK;
+    //    // use bytes_retrieved;
+    //});
+
+    //async_op_with_progress.Completed(
+    //    [](
+    //        IAsyncOperationWithProgress<winrt::Microsoft::Management::Deployment::InstallResult,
+    //        winrt::Microsoft::Management::Deployment::InstallProgress> const& sender,
+    //        AsyncStatus const /* asyncStatus */)
+    //{
+    //    winrt::Microsoft::Management::Deployment::InstallResult syndicinstallResultationFeed = sender.GetResults();
+    //    // use syndicationFeed;
+    //});
+
+    //async_op_with_progress.Progress([](auto const& /*sender*/, winrt::Microsoft::Management::Deployment::InstallProgress progress)
+    //{
+    //    if (progress.DownloadPercentage > 50)
+    //    {
+    //        OutputDebugString(L"Dowload Percentage over 50 \n");
+    //        return S_OK;
+    //    }
+    //    else
+    //    {
+    //        OutputDebugString(L"Download Percentage below 50 \n");
+    //        return S_OK;
+    //    }
+    //});
+
+
+
+        //async_op_with_progress.Completed([](auto&& sender, AsyncStatus const /* status */)
+        //{
+        //    winrt::Microsoft::Management::Deployment::InstallResult result{ sender.GetResults() };
+        //    if (!result.RebootRequired())
+        //    {
+        //        OutputDebugString(L"Handler Reboot wasnt required \n");
+        //    }
+        //});
+
+        /*winrt::Microsoft::Management::Deployment::InstallResult result1{ async_op_with_progress.GetResults() };
+        while (result1 == nullptr || result1.RebootRequired() == true)
+        {
+            Sleep(20000);
+            result1 = async_op_with_progress.GetResults();
+        }*/
+
+        //try
+        //{
+        //    auto installOperation{ appInstaller.InstallPackageAsync(installerOptions) };
+        //    installOperation.Progress([](auto const& /*sender*/, winrt::Microsoft::Management::Deployment::InstallProgress progress)
+        //    {
+        //        if (progress.DownloadPercentage > 50)
+        //        {
+        //            wprintf(L"Dowload Percentage over 50");
+        //            return S_OK;
+        //        }
+        //        else
+        //        {
+        //            wprintf(L"Download Percentage below 50");
+        //            return E_FAIL;
+        //        }
+        //    });
+        //    installOperation.Completed([](auto const& sender, AsyncStatus /* status */)
+        //    {
+        //        winrt::Microsoft::Management::Deployment::InstallResult result{ sender.GetResults() };
+        //        if (result.RebootRequired())
+        //        {
+        //            wprintf(L"Reboot was required");
+        //        }
+        //    });
+        //}
+        //catch (winrt::hresult_error const& ex)
+        //{
+        //    wprintf(L"Error");
+        //}
+
+
+}
