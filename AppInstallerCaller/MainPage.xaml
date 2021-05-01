@@ -3,20 +3,34 @@
     xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
     xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
     xmlns:local="using:AppInstallerCaller"
+    xmlns:deployment="using:Microsoft.Management.Deployment"
     xmlns:d="http://schemas.microsoft.com/expression/blend/2008"
     xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
     mc:Ignorable="d">
 
-    <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <Button x:Name="startServerButton" Click="StartServerButtonClickHandler" HorizontalAlignment="Center">Start server for attaching debugger.</Button>
+    <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12">
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+            <TextBlock Margin="0 12 0 0">Select catalogs to search</TextBlock>
+            <ListBox x:Name="catalogsListBox" ItemsSource="{x:Bind AppCatalogs}" SelectionMode="Multiple" MaxWidth="300" MinHeight="50">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="deployment:AppCatalog">
+                        <TextBlock Text="{x:Bind Info.Name, Mode=OneWay}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <!--<Button x:Name="findSourcesButton" Click="FindSourcesButtonClickHandler" HorizontalAlignment="Center" Margin="12">Find Catalogs.</Button>-->
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12">
             <TextBox x:Name="catalogIdTextBox" Header="Find an app to install:" PlaceholderText="App Id"></TextBox>
             <Button x:Name="searchButton" Click="SearchButtonClickHandler" VerticalAlignment="Bottom">🔍</Button>
         </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="installButton" Click="InstallButtonClickHandler" HorizontalAlignment="Center" IsEnabled="False">Install</Button>
-        </StackPanel>
+                <Button x:Name="installButton" Click="InstallButtonClickHandler" IsEnabled="False">Install</Button>
+                <Button x:Name="cancelButton" Click="CancelButtonClickHandler" Margin="12 0 0 0" IsEnabled="False">Cancel</Button>
+            </StackPanel>
         <ProgressBar x:Name="installProgressBar" Value="0" Maximum="100" Width="200px" Margin="12" ></ProgressBar>
         <TextBlock x:Name="installStatusText" Text="" HorizontalAlignment="Center"></TextBlock>
+        </StackPanel>
     </StackPanel>
 </Page>

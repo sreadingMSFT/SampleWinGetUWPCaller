@@ -42,6 +42,7 @@ namespace winrt::AppInstallerCaller::implementation
     MainPage::MainPage()
     {
         InitializeComponent();
+        m_appCatalogs = winrt::single_threaded_observable_vector<AppCatalog>();
         InitializeUI();
     }
         
@@ -149,7 +150,8 @@ namespace winrt::AppInstallerCaller::implementation
 
     IAsyncAction UpdateUIForInstall(
         IAsyncOperationWithProgress<InstallResult, InstallProgress> installPackageOperation, 
-        winrt::Windows::UI::Xaml::Controls::Button button,
+        winrt::Windows::UI::Xaml::Controls::Button installButton,
+        winrt::Windows::UI::Xaml::Controls::Button cancelButton,
         winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar, 
         winrt::Windows::UI::Xaml::Controls::TextBlock statusText)
     {
@@ -169,6 +171,7 @@ namespace winrt::AppInstallerCaller::implementation
         }
         catch (hresult_canceled const&)
         {
+            errorMessage = L"Cancelled";
             OutputDebugString(L"Operation was cancelled");
         }
         catch (winrt::hresult_error const& ex)
@@ -184,32 +187,63 @@ namespace winrt::AppInstallerCaller::implementation
         // Switch back to ui thread context.
         co_await winrt::resume_foreground(progressBar.Dispatcher());
 
+        cancelButton.IsEnabled(false);
+        installButton.IsEnabled(true);
+        progressBar.IsIndeterminate(false);
+
         if (installPackageOperation.Status() == AsyncStatus::Canceled)
         {
-            button.Content(box_value(L"Retry"));
+            installButton.Content(box_value(L"Retry"));
             statusText.Text(L"Install cancelled.");
         }
         if (installPackageOperation.Status() == AsyncStatus::Error || installResult == nullptr)
         {
-            button.Content(box_value(L"Error"));
+            installButton.Content(box_value(L"Retry"));
             statusText.Text(errorMessage.c_str());
         }
         else if (installResult.RebootRequired())
         {
-            button.Content(box_value(L"Reboot Required."));
+            installButton.Content(box_value(L"Install"));
             statusText.Text(L"Reboot to finish installation.");
         }
         else
         {
-            button.Content(box_value(L"Installed"));
+            installButton.Content(box_value(L"Install"));
+            statusText.Text(L"Finished.");
         }
     }
 
+    IAsyncAction MainPage::GetSources(winrt::Windows::UI::Xaml::Controls::Button button)
+    {
+        co_await winrt::resume_background();
+
+        AppInstaller appInstaller = CreateAppInstaller();
+        //AppCatalog catalog{ appInstaller.GetAppCatalog(PredefinedAppCatalog::OpenWindowsCatalog) };
+        //catalog.OpenAsync().get();
+        co_await winrt::resume_background();
+        auto catalogs{ appInstaller.GetAppCatalogs() };
+        for (uint32_t i = 0; i < catalogs.Size(); i++)
+        {
+            catalogs.GetAt(i).OpenAsync().get();
+        }
+        co_await winrt::resume_foreground(button.Dispatcher());
+        //m_appCatalogs.Append(catalog);
+        for (uint32_t i = 0; i < catalogs.Size(); i++)
+        {
+            m_appCatalogs.Append(catalogs.GetAt(i));
+        }
+        co_return;
+    }
+
     IAsyncAction MainPage::StartInstall(
-        winrt::Windows::UI::Xaml::Controls::Button button,
+        winrt::Windows::UI::Xaml::Controls::Button installButton,
+        winrt::Windows::UI::Xaml::Controls::Button cancelButton,
         winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar,
         winrt::Windows::UI::Xaml::Controls::TextBlock statusText)
     {
+        installButton.IsEnabled(false);
+        cancelButton.IsEnabled(true);
+
         co_await winrt::resume_background();
 
         AppInstaller appInstaller = CreateAppInstaller();
@@ -222,7 +256,7 @@ namespace winrt::AppInstallerCaller::implementation
         if (matches.Size() > 0)
         {
             m_installPackageOperation = InstallPackage(matches.GetAt(0).CatalogPackage());
-            UpdateUIForInstall(m_installPackageOperation, button, progressBar, statusText);
+            UpdateUIForInstall(m_installPackageOperation, installButton, cancelButton, progressBar, statusText);
         }
     }
 
@@ -231,12 +265,19 @@ namespace winrt::AppInstallerCaller::implementation
         winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar,
         winrt::Windows::UI::Xaml::Controls::TextBlock statusText)
     {
+        int32_t selectedIndex = catalogsListBox().SelectedIndex();
         co_await winrt::resume_background();
 
-        AppInstaller appInstaller = CreateAppInstaller();
-        AppCatalog catalog{ appInstaller.GetAppCatalog(PredefinedAppCatalog::OpenWindowsCatalog) };
-        catalog.OpenAsync().get();
-        FindPackagesResult findPackagesResult{ TryFindPackageInCatalog(catalog, m_installAppId).get() };
+        //auto selected = catalogsListBox().SelectedItems();
+        if (selectedIndex < 0)
+        {
+            co_await winrt::resume_foreground(button.Dispatcher());
+            button.IsEnabled(false);
+            statusText.Text(L"No catalog selected to search.");
+            co_return;
+        }
+        
+        FindPackagesResult findPackagesResult{ TryFindPackageInCatalog(m_appCatalogs.GetAt(selectedIndex), m_installAppId).get() };
 
         winrt::IVectorView<ResultMatch> matches = findPackagesResult.Matches();
         if (matches.Size() > 0)
@@ -266,7 +307,8 @@ namespace winrt::AppInstallerCaller::implementation
 
     IAsyncAction MainPage::InitializeInstallUI(
         std::wstring installAppId,
-        winrt::Windows::UI::Xaml::Controls::Button button,
+        winrt::Windows::UI::Xaml::Controls::Button installButton,
+        winrt::Windows::UI::Xaml::Controls::Button cancelButton,
         winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar,
         winrt::Windows::UI::Xaml::Controls::TextBlock statusText)
     {
@@ -305,34 +347,36 @@ namespace winrt::AppInstallerCaller::implementation
         if (package.IsInstalling())
         {
             m_installPackageOperation = appInstaller.GetInstallProgress(package);
-            UpdateUIForInstall(m_installPackageOperation, button, progressBar, statusText);
+            UpdateUIForInstall(m_installPackageOperation, installButton, cancelButton, progressBar, statusText);
         }
     }
 
     void MainPage::InitializeUI()
     {
         m_installAppId = L"Microsoft.VSCode";
-        InitializeInstallUI(m_installAppId, installButton(), installProgressBar(), installStatusText());
+        GetSources(installButton());
+        InitializeInstallUI(m_installAppId, installButton(), cancelButton(), installProgressBar(), installStatusText());
     }
     
     void MainPage::SearchButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
     {
         m_installAppId = catalogIdTextBox().Text();
         installButton().IsEnabled(false);
+        cancelButton().IsEnabled(false);
         installStatusText().Text(L"Looking for app.");
         FindPackage(installButton(), installProgressBar(), installStatusText());
     }
     void MainPage::InstallButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
     {
-        if (m_installPackageOperation == nullptr)
+        if (m_installPackageOperation == nullptr || m_installPackageOperation.Status() != AsyncStatus::Started)
         {
-            StartInstall(installButton(), installProgressBar(), installStatusText());
+            StartInstall(installButton(), cancelButton(), installProgressBar(), installStatusText());
         }
     }
 
     void MainPage::CancelButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
     {
-        if (m_installPackageOperation)
+        if (m_installPackageOperation && m_installPackageOperation.Status() == AsyncStatus::Started)
         {
             m_installPackageOperation.Cancel();
         }
@@ -345,6 +389,10 @@ namespace winrt::AppInstallerCaller::implementation
     void MainPage::StartServerButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
     {
         StartServer();
+    }
+    void MainPage::FindSourcesButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
+    {
+        GetSources(installButton());
     }
 
     IAsyncAction CancelInstall(
@@ -386,6 +434,10 @@ namespace winrt::AppInstallerCaller::implementation
         }
     }
 
+    Windows::Foundation::Collections::IObservableVector<Microsoft::Management::Deployment::AppCatalog> MainPage::AppCatalogs()
+    {
+        return m_appCatalogs;
+    }
 
     /*
     */

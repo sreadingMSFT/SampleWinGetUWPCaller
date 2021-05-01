@@ -12,20 +12,26 @@ namespace winrt::AppInstallerCaller::implementation
     struct MainPage : MainPageT<MainPage>
     {
         MainPage();
+        //Windows::Foundation::Collections::IObservableVector<Deployment::AppCatalog> AppCatalogs();
+        Windows::Foundation::Collections::IObservableVector<Deployment::AppCatalog> AppCatalogs();
 
         void InitializeUI();
+        void FindSourcesButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void StartServerButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void InstallButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void CancelButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void SearchButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
 
+        Windows::Foundation::IAsyncAction GetSources(winrt::Windows::UI::Xaml::Controls::Button button);
         Windows::Foundation::IAsyncAction InitializeInstallUI(
             std::wstring installAppId,
-            winrt::Windows::UI::Xaml::Controls::Button button,
+            winrt::Windows::UI::Xaml::Controls::Button installButton,
+            winrt::Windows::UI::Xaml::Controls::Button cancelButton,
             winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar,
             winrt::Windows::UI::Xaml::Controls::TextBlock statusText); 
         Windows::Foundation::IAsyncAction StartInstall(
-            winrt::Windows::UI::Xaml::Controls::Button button,
+            winrt::Windows::UI::Xaml::Controls::Button installButton,
+            winrt::Windows::UI::Xaml::Controls::Button cancelButton,
             winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar,
             winrt::Windows::UI::Xaml::Controls::TextBlock statusText);
         Windows::Foundation::IAsyncAction FindPackage(
@@ -34,6 +40,8 @@ namespace winrt::AppInstallerCaller::implementation
             winrt::Windows::UI::Xaml::Controls::TextBlock statusText);
         Windows::Foundation::IAsyncOperation<Deployment::CatalogPackage> FindPackage();
 
+    private:
+        Windows::Foundation::Collections::IObservableVector<Deployment::AppCatalog> m_appCatalogs;
         Windows::Foundation::IAsyncOperationWithProgress<Deployment::InstallResult, Deployment::InstallProgress> m_installPackageOperation;
         std::wstring m_installAppId;
 
