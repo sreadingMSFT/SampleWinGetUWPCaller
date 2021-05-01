@@ -8,8 +8,13 @@
     mc:Ignorable="d">
 
     <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+        <Button x:Name="startServerButton" Click="StartServerButtonClickHandler" HorizontalAlignment="Center">Start server for attaching debugger.</Button>
+        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12">
+            <TextBox x:Name="catalogIdTextBox" Header="Find an app to install:" PlaceholderText="App Id"></TextBox>
+            <Button x:Name="searchButton" Click="SearchButtonClickHandler" VerticalAlignment="Bottom">🔍</Button>
+        </StackPanel>
         <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center">
-            <Button x:Name="installButton" Click="InstallButtonClickHandler" HorizontalAlignment="Center">Install</Button>
+            <Button x:Name="installButton" Click="InstallButtonClickHandler" HorizontalAlignment="Center" IsEnabled="False">Install</Button>
         </StackPanel>
         <ProgressBar x:Name="installProgressBar" Value="0" Maximum="100" Width="200px" Margin="12" ></ProgressBar>
         <TextBlock x:Name="installStatusText" Text="" HorizontalAlignment="Center"></TextBlock>
