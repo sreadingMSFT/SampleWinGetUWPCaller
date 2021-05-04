@@ -825,7 +825,7 @@ namespace ABI {
 #if !defined(RO_NO_TEMPLATE_NAME)
 namespace ABI { namespace Windows { namespace Foundation {
 template <>
-struct __declspec(uuid("3c6a5d1f-c824-591a-9a99-5ad2b07b7b6a"))
+struct __declspec(uuid("87f2499c-41c2-5ef0-967c-c36ea5d2d4a9"))
 IAsyncOperationProgressHandler<ABI::Microsoft::Management::Deployment::InstallResult*,struct ABI::Microsoft::Management::Deployment::InstallProgress> : IAsyncOperationProgressHandler_impl<ABI::Windows::Foundation::Internal::AggregateType<ABI::Microsoft::Management::Deployment::InstallResult*, ABI::Microsoft::Management::Deployment::IInstallResult*>,struct ABI::Microsoft::Management::Deployment::InstallProgress> 
 {
     static const wchar_t* z_get_rc_name_impl() 
@@ -858,7 +858,7 @@ typedef IAsyncOperationProgressHandler<ABI::Microsoft::Management::Deployment::I
 #if !defined(RO_NO_TEMPLATE_NAME)
 namespace ABI { namespace Windows { namespace Foundation {
 template <>
-struct __declspec(uuid("53ea8b9c-8b0c-55ac-ad4b-399c3249bc83"))
+struct __declspec(uuid("da8b29d5-fd64-528b-8a86-fda253c8cccf"))
 IAsyncOperationWithProgressCompletedHandler<ABI::Microsoft::Management::Deployment::InstallResult*,struct ABI::Microsoft::Management::Deployment::InstallProgress> : IAsyncOperationWithProgressCompletedHandler_impl<ABI::Windows::Foundation::Internal::AggregateType<ABI::Microsoft::Management::Deployment::InstallResult*, ABI::Microsoft::Management::Deployment::IInstallResult*>,struct ABI::Microsoft::Management::Deployment::InstallProgress> 
 {
     static const wchar_t* z_get_rc_name_impl() 
@@ -891,7 +891,7 @@ typedef IAsyncOperationWithProgressCompletedHandler<ABI::Microsoft::Management::
 #if !defined(RO_NO_TEMPLATE_NAME)
 namespace ABI { namespace Windows { namespace Foundation {
 template <>
-struct __declspec(uuid("f766db86-17bb-5a94-8ad6-fab8fbabf7ef"))
+struct __declspec(uuid("8d824bb3-85d6-59e5-b61a-c2e9ec8b501c"))
 IAsyncOperationWithProgress<ABI::Microsoft::Management::Deployment::InstallResult*,struct ABI::Microsoft::Management::Deployment::InstallProgress> : IAsyncOperationWithProgress_impl<ABI::Windows::Foundation::Internal::AggregateType<ABI::Microsoft::Management::Deployment::InstallResult*, ABI::Microsoft::Management::Deployment::IInstallResult*>,struct ABI::Microsoft::Management::Deployment::InstallProgress> 
 {
     static const wchar_t* z_get_rc_name_impl() 
@@ -2101,8 +2101,8 @@ namespace ABI {
     namespace Microsoft {
         namespace Management {
             namespace Deployment {
-                /* [object, uuid("CC389968-397F-55E9-B9DB-15F771619316"), exclusiveto, contract] */
-                MIDL_INTERFACE("CC389968-397F-55E9-B9DB-15F771619316")
+                /* [object, uuid("303C849F-3EDB-5395-BE35-614F8F0DE8FA"), exclusiveto, contract] */
+                MIDL_INTERFACE("303C849F-3EDB-5395-BE35-614F8F0DE8FA")
                 IInstallOptions : public IInspectable
                 {
                 public:
@@ -2154,10 +2154,10 @@ namespace ABI {
                     /* [propput] */virtual HRESULT STDMETHODCALLTYPE put_ReplacementInstallerArguments(
                         /* [in] */HSTRING value
                         ) = 0;
-                    /* [propget] */virtual HRESULT STDMETHODCALLTYPE get_AdditionalTelemetryArguments(
+                    /* [propget] */virtual HRESULT STDMETHODCALLTYPE get_CorrelationData(
                         /* [retval, out] */HSTRING * value
                         ) = 0;
-                    /* [propput] */virtual HRESULT STDMETHODCALLTYPE put_AdditionalTelemetryArguments(
+                    /* [propput] */virtual HRESULT STDMETHODCALLTYPE put_CorrelationData(
                         /* [in] */HSTRING value
                         ) = 0;
                     /* [propget] */virtual HRESULT STDMETHODCALLTYPE get_AdditionalAppCatalogArguments(
@@ -2200,12 +2200,12 @@ namespace ABI {
     namespace Microsoft {
         namespace Management {
             namespace Deployment {
-                /* [object, uuid("B76B30E5-6C1F-55D3-B73C-A65AB096BD66"), exclusiveto, contract] */
-                MIDL_INTERFACE("B76B30E5-6C1F-55D3-B73C-A65AB096BD66")
+                /* [object, uuid("DB92A5AF-4121-5C5E-8B8E-9B063AF70887"), exclusiveto, contract] */
+                MIDL_INTERFACE("DB92A5AF-4121-5C5E-8B8E-9B063AF70887")
                 IInstallResult : public IInspectable
                 {
                 public:
-                    /* [propget] */virtual HRESULT STDMETHODCALLTYPE get_CorrelationId(
+                    /* [propget] */virtual HRESULT STDMETHODCALLTYPE get_CorrelationData(
                         /* [retval, out] */HSTRING * value
                         ) = 0;
                     /* [propget] */virtual HRESULT STDMETHODCALLTYPE get_RebootRequired(
@@ -2356,8 +2356,8 @@ namespace ABI {
     namespace Microsoft {
         namespace Management {
             namespace Deployment {
-                /* [object, uuid("36FD0B61-FE41-5723-9AFE-0B34C1C76634"), exclusiveto, contract] */
-                MIDL_INTERFACE("36FD0B61-FE41-5723-9AFE-0B34C1C76634")
+                /* [object, uuid("FC9750C8-DE4B-5515-9115-F7AB59D993E7"), exclusiveto, contract] */
+                MIDL_INTERFACE("FC9750C8-DE4B-5515-9115-F7AB59D993E7")
                 IPackageVersionInfo : public IInspectable
                 {
                 public:
@@ -2369,12 +2369,6 @@ namespace ABI {
                         /* [retval, out] */HSTRING * value
                         ) = 0;
                     /* [propget] */virtual HRESULT STDMETHODCALLTYPE get_Name(
-                        /* [retval, out] */HSTRING * value
-                        ) = 0;
-                    /* [propget] */virtual HRESULT STDMETHODCALLTYPE get_AppCatalogIdentifier(
-                        /* [retval, out] */HSTRING * value
-                        ) = 0;
-                    /* [propget] */virtual HRESULT STDMETHODCALLTYPE get_AppCatalogName(
                         /* [retval, out] */HSTRING * value
                         ) = 0;
                     /* [propget] */virtual HRESULT STDMETHODCALLTYPE get_Version(
@@ -6073,7 +6067,7 @@ EXTERN_C const IID IID___x_ABI_CMicrosoft_CManagement_CDeployment_CIGetComposite
 #if !defined(____x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptions_INTERFACE_DEFINED__)
 #define ____x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptions_INTERFACE_DEFINED__
 extern const __declspec(selectany) _Null_terminated_ WCHAR InterfaceName_Microsoft_Management_Deployment_IInstallOptions[] = L"Microsoft.Management.Deployment.IInstallOptions";
-/* [object, uuid("CC389968-397F-55E9-B9DB-15F771619316"), exclusiveto, contract] */
+/* [object, uuid("303C849F-3EDB-5395-BE35-614F8F0DE8FA"), exclusiveto, contract] */
 typedef struct __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptionsVtbl
 {
     BEGIN_INTERFACE
@@ -6171,11 +6165,11 @@ HRESULT ( STDMETHODCALLTYPE *GetTrustLevel )(
         __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptions * This,
         /* [in] */HSTRING value
         );
-    /* [propget] */HRESULT ( STDMETHODCALLTYPE *get_AdditionalTelemetryArguments )(
+    /* [propget] */HRESULT ( STDMETHODCALLTYPE *get_CorrelationData )(
         __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptions * This,
         /* [retval, out] */HSTRING * value
         );
-    /* [propput] */HRESULT ( STDMETHODCALLTYPE *put_AdditionalTelemetryArguments )(
+    /* [propput] */HRESULT ( STDMETHODCALLTYPE *put_CorrelationData )(
         __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptions * This,
         /* [in] */HSTRING value
         );
@@ -6263,11 +6257,11 @@ interface __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptions
 #define __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptions_put_ReplacementInstallerArguments(This,value) \
     ( (This)->lpVtbl->put_ReplacementInstallerArguments(This,value) )
 
-#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptions_get_AdditionalTelemetryArguments(This,value) \
-    ( (This)->lpVtbl->get_AdditionalTelemetryArguments(This,value) )
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptions_get_CorrelationData(This,value) \
+    ( (This)->lpVtbl->get_CorrelationData(This,value) )
 
-#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptions_put_AdditionalTelemetryArguments(This,value) \
-    ( (This)->lpVtbl->put_AdditionalTelemetryArguments(This,value) )
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptions_put_CorrelationData(This,value) \
+    ( (This)->lpVtbl->put_CorrelationData(This,value) )
 
 #define __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptions_get_AdditionalAppCatalogArguments(This,value) \
     ( (This)->lpVtbl->get_AdditionalAppCatalogArguments(This,value) )
@@ -6299,7 +6293,7 @@ EXTERN_C const IID IID___x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallOptio
 #if !defined(____x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallResult_INTERFACE_DEFINED__)
 #define ____x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallResult_INTERFACE_DEFINED__
 extern const __declspec(selectany) _Null_terminated_ WCHAR InterfaceName_Microsoft_Management_Deployment_IInstallResult[] = L"Microsoft.Management.Deployment.IInstallResult";
-/* [object, uuid("B76B30E5-6C1F-55D3-B73C-A65AB096BD66"), exclusiveto, contract] */
+/* [object, uuid("DB92A5AF-4121-5C5E-8B8E-9B063AF70887"), exclusiveto, contract] */
 typedef struct __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallResultVtbl
 {
     BEGIN_INTERFACE
@@ -6333,7 +6327,7 @@ HRESULT ( STDMETHODCALLTYPE *GetTrustLevel )(
     __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallResult * This,
     /* [OUT ] */ __RPC__out TrustLevel *trustLevel
     );
-/* [propget] */HRESULT ( STDMETHODCALLTYPE *get_CorrelationId )(
+/* [propget] */HRESULT ( STDMETHODCALLTYPE *get_CorrelationData )(
         __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallResult * This,
         /* [retval, out] */HSTRING * value
         );
@@ -6369,8 +6363,8 @@ interface __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallResult
 #define __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallResult_GetTrustLevel(This,trustLevel) \
         ( (This)->lpVtbl->GetTrustLevel(This,trustLevel) )
 
-#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallResult_get_CorrelationId(This,value) \
-    ( (This)->lpVtbl->get_CorrelationId(This,value) )
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallResult_get_CorrelationData(This,value) \
+    ( (This)->lpVtbl->get_CorrelationData(This,value) )
 
 #define __x_ABI_CMicrosoft_CManagement_CDeployment_CIInstallResult_get_RebootRequired(This,value) \
     ( (This)->lpVtbl->get_RebootRequired(This,value) )
@@ -6648,7 +6642,7 @@ EXTERN_C const IID IID___x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersi
 #if !defined(____x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo_INTERFACE_DEFINED__)
 #define ____x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo_INTERFACE_DEFINED__
 extern const __declspec(selectany) _Null_terminated_ WCHAR InterfaceName_Microsoft_Management_Deployment_IPackageVersionInfo[] = L"Microsoft.Management.Deployment.IPackageVersionInfo";
-/* [object, uuid("36FD0B61-FE41-5723-9AFE-0B34C1C76634"), exclusiveto, contract] */
+/* [object, uuid("FC9750C8-DE4B-5515-9115-F7AB59D993E7"), exclusiveto, contract] */
 typedef struct __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfoVtbl
 {
     BEGIN_INTERFACE
@@ -6692,14 +6686,6 @@ HRESULT ( STDMETHODCALLTYPE *GetMetadata )(
         /* [retval, out] */HSTRING * value
         );
     /* [propget] */HRESULT ( STDMETHODCALLTYPE *get_Name )(
-        __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * This,
-        /* [retval, out] */HSTRING * value
-        );
-    /* [propget] */HRESULT ( STDMETHODCALLTYPE *get_AppCatalogIdentifier )(
-        __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * This,
-        /* [retval, out] */HSTRING * value
-        );
-    /* [propget] */HRESULT ( STDMETHODCALLTYPE *get_AppCatalogName )(
         __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * This,
         /* [retval, out] */HSTRING * value
         );
@@ -6759,12 +6745,6 @@ interface __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo
 
 #define __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo_get_Name(This,value) \
     ( (This)->lpVtbl->get_Name(This,value) )
-
-#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo_get_AppCatalogIdentifier(This,value) \
-    ( (This)->lpVtbl->get_AppCatalogIdentifier(This,value) )
-
-#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo_get_AppCatalogName(This,value) \
-    ( (This)->lpVtbl->get_AppCatalogName(This,value) )
 
 #define __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo_get_Version(This,value) \
     ( (This)->lpVtbl->get_Version(This,value) )
