@@ -305,6 +305,21 @@ namespace ABI {
 
 #endif // ____x_ABI_CMicrosoft_CManagement_CDeployment_CIResultMatch_FWD_DEFINED__
 
+#ifndef ____x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_FWD_DEFINED__
+#define ____x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_FWD_DEFINED__
+namespace ABI {
+    namespace Microsoft {
+        namespace Management {
+            namespace Deployment {
+                interface IVectors;
+            } /* Deployment */
+        } /* Management */
+    } /* Microsoft */
+} /* ABI */
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors ABI::Microsoft::Management::Deployment::IVectors
+
+#endif // ____x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_FWD_DEFINED__
+
 // Parameterized interface forward declarations (C++)
 
 // Collection interface definitions
@@ -378,6 +393,80 @@ typedef IIterable<ABI::Microsoft::Management::Deployment::AppCatalog*> __FIItera
 //#define __FIIterable_1_Microsoft__CManagement__CDeployment__CAppCatalog_t ABI::Windows::Foundation::Collections::IIterable<ABI::Microsoft::Management::Deployment::IAppCatalog*>
 #endif // !defined(RO_NO_TEMPLATE_NAME)
 #endif /* DEF___FIIterable_1_Microsoft__CManagement__CDeployment__CAppCatalog_USE */
+
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+namespace ABI {
+    namespace Microsoft {
+        namespace Management {
+            namespace Deployment {
+                class CatalogPackage;
+            } /* Deployment */
+        } /* Management */
+    } /* Microsoft */
+} /* ABI */
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+#ifndef DEF___FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_USE
+#define DEF___FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_USE
+#if !defined(RO_NO_TEMPLATE_NAME)
+namespace ABI { namespace Windows { namespace Foundation { namespace Collections {
+template <>
+struct __declspec(uuid("79defe31-8e33-57c8-b303-364d7fe025b8"))
+IIterator<ABI::Microsoft::Management::Deployment::CatalogPackage*> : IIterator_impl<ABI::Windows::Foundation::Internal::AggregateType<ABI::Microsoft::Management::Deployment::CatalogPackage*, ABI::Microsoft::Management::Deployment::ICatalogPackage*>> 
+{
+    static const wchar_t* z_get_rc_name_impl() 
+    {
+        return L"Windows.Foundation.Collections.IIterator`1<Microsoft.Management.Deployment.CatalogPackage>"; 
+    }
+};
+// Define a typedef for the parameterized interface specialization's mangled name.
+// This allows code which uses the mangled name for the parameterized interface to access the
+// correct parameterized interface specialization.
+typedef IIterator<ABI::Microsoft::Management::Deployment::CatalogPackage*> __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_t;
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage ABI::Windows::Foundation::Collections::__FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_t
+/* Collections */ } /* Foundation */ } /* Windows */ } /* ABI */ } 
+
+////  Define an alias for the C version of the interface for compatibility purposes.
+//#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage ABI::Windows::Foundation::Collections::IIterator<ABI::Microsoft::Management::Deployment::ICatalogPackage*>
+//#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_t ABI::Windows::Foundation::Collections::IIterator<ABI::Microsoft::Management::Deployment::ICatalogPackage*>
+#endif // !defined(RO_NO_TEMPLATE_NAME)
+#endif /* DEF___FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_USE */
+
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+#ifndef DEF___FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_USE
+#define DEF___FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_USE
+#if !defined(RO_NO_TEMPLATE_NAME)
+namespace ABI { namespace Windows { namespace Foundation { namespace Collections {
+template <>
+struct __declspec(uuid("327f6776-a7a4-5eba-8977-9f229ac44939"))
+IIterable<ABI::Microsoft::Management::Deployment::CatalogPackage*> : IIterable_impl<ABI::Windows::Foundation::Internal::AggregateType<ABI::Microsoft::Management::Deployment::CatalogPackage*, ABI::Microsoft::Management::Deployment::ICatalogPackage*>> 
+{
+    static const wchar_t* z_get_rc_name_impl() 
+    {
+        return L"Windows.Foundation.Collections.IIterable`1<Microsoft.Management.Deployment.CatalogPackage>"; 
+    }
+};
+// Define a typedef for the parameterized interface specialization's mangled name.
+// This allows code which uses the mangled name for the parameterized interface to access the
+// correct parameterized interface specialization.
+typedef IIterable<ABI::Microsoft::Management::Deployment::CatalogPackage*> __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_t;
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage ABI::Windows::Foundation::Collections::__FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_t
+/* Collections */ } /* Foundation */ } /* Windows */ } /* ABI */ } 
+
+////  Define an alias for the C version of the interface for compatibility purposes.
+//#define __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage ABI::Windows::Foundation::Collections::IIterable<ABI::Microsoft::Management::Deployment::ICatalogPackage*>
+//#define __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_t ABI::Windows::Foundation::Collections::IIterable<ABI::Microsoft::Management::Deployment::ICatalogPackage*>
+#endif // !defined(RO_NO_TEMPLATE_NAME)
+#endif /* DEF___FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_USE */
 
 
 #endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
@@ -534,6 +623,80 @@ namespace ABI {
     namespace Microsoft {
         namespace Management {
             namespace Deployment {
+                class PackageVersionInfo;
+            } /* Deployment */
+        } /* Management */
+    } /* Microsoft */
+} /* ABI */
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+#ifndef DEF___FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_USE
+#define DEF___FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_USE
+#if !defined(RO_NO_TEMPLATE_NAME)
+namespace ABI { namespace Windows { namespace Foundation { namespace Collections {
+template <>
+struct __declspec(uuid("3b87eb99-5704-5221-976f-096002310cb1"))
+IIterator<ABI::Microsoft::Management::Deployment::PackageVersionInfo*> : IIterator_impl<ABI::Windows::Foundation::Internal::AggregateType<ABI::Microsoft::Management::Deployment::PackageVersionInfo*, ABI::Microsoft::Management::Deployment::IPackageVersionInfo*>> 
+{
+    static const wchar_t* z_get_rc_name_impl() 
+    {
+        return L"Windows.Foundation.Collections.IIterator`1<Microsoft.Management.Deployment.PackageVersionInfo>"; 
+    }
+};
+// Define a typedef for the parameterized interface specialization's mangled name.
+// This allows code which uses the mangled name for the parameterized interface to access the
+// correct parameterized interface specialization.
+typedef IIterator<ABI::Microsoft::Management::Deployment::PackageVersionInfo*> __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_t;
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo ABI::Windows::Foundation::Collections::__FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_t
+/* Collections */ } /* Foundation */ } /* Windows */ } /* ABI */ } 
+
+////  Define an alias for the C version of the interface for compatibility purposes.
+//#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo ABI::Windows::Foundation::Collections::IIterator<ABI::Microsoft::Management::Deployment::IPackageVersionInfo*>
+//#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_t ABI::Windows::Foundation::Collections::IIterator<ABI::Microsoft::Management::Deployment::IPackageVersionInfo*>
+#endif // !defined(RO_NO_TEMPLATE_NAME)
+#endif /* DEF___FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_USE */
+
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+#ifndef DEF___FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_USE
+#define DEF___FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_USE
+#if !defined(RO_NO_TEMPLATE_NAME)
+namespace ABI { namespace Windows { namespace Foundation { namespace Collections {
+template <>
+struct __declspec(uuid("1f16acb1-09b1-588c-97eb-b58feed59827"))
+IIterable<ABI::Microsoft::Management::Deployment::PackageVersionInfo*> : IIterable_impl<ABI::Windows::Foundation::Internal::AggregateType<ABI::Microsoft::Management::Deployment::PackageVersionInfo*, ABI::Microsoft::Management::Deployment::IPackageVersionInfo*>> 
+{
+    static const wchar_t* z_get_rc_name_impl() 
+    {
+        return L"Windows.Foundation.Collections.IIterable`1<Microsoft.Management.Deployment.PackageVersionInfo>"; 
+    }
+};
+// Define a typedef for the parameterized interface specialization's mangled name.
+// This allows code which uses the mangled name for the parameterized interface to access the
+// correct parameterized interface specialization.
+typedef IIterable<ABI::Microsoft::Management::Deployment::PackageVersionInfo*> __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_t;
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo ABI::Windows::Foundation::Collections::__FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_t
+/* Collections */ } /* Foundation */ } /* Windows */ } /* ABI */ } 
+
+////  Define an alias for the C version of the interface for compatibility purposes.
+//#define __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo ABI::Windows::Foundation::Collections::IIterable<ABI::Microsoft::Management::Deployment::IPackageVersionInfo*>
+//#define __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_t ABI::Windows::Foundation::Collections::IIterable<ABI::Microsoft::Management::Deployment::IPackageVersionInfo*>
+#endif // !defined(RO_NO_TEMPLATE_NAME)
+#endif /* DEF___FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_USE */
+
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+namespace ABI {
+    namespace Microsoft {
+        namespace Management {
+            namespace Deployment {
                 class ResultMatch;
             } /* Deployment */
         } /* Management */
@@ -639,6 +802,38 @@ typedef IVectorView<ABI::Microsoft::Management::Deployment::AppCatalog*> __FIVec
 
 #if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
 
+#ifndef DEF___FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_USE
+#define DEF___FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_USE
+#if !defined(RO_NO_TEMPLATE_NAME)
+namespace ABI { namespace Windows { namespace Foundation { namespace Collections {
+template <>
+struct __declspec(uuid("0ca500a5-62a7-507c-be22-3a9275ac744c"))
+IVectorView<ABI::Microsoft::Management::Deployment::CatalogPackage*> : IVectorView_impl<ABI::Windows::Foundation::Internal::AggregateType<ABI::Microsoft::Management::Deployment::CatalogPackage*, ABI::Microsoft::Management::Deployment::ICatalogPackage*>> 
+{
+    static const wchar_t* z_get_rc_name_impl() 
+    {
+        return L"Windows.Foundation.Collections.IVectorView`1<Microsoft.Management.Deployment.CatalogPackage>"; 
+    }
+};
+// Define a typedef for the parameterized interface specialization's mangled name.
+// This allows code which uses the mangled name for the parameterized interface to access the
+// correct parameterized interface specialization.
+typedef IVectorView<ABI::Microsoft::Management::Deployment::CatalogPackage*> __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_t;
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage ABI::Windows::Foundation::Collections::__FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_t
+/* Collections */ } /* Foundation */ } /* Windows */ } /* ABI */ } 
+
+////  Define an alias for the C version of the interface for compatibility purposes.
+//#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage ABI::Windows::Foundation::Collections::IVectorView<ABI::Microsoft::Management::Deployment::ICatalogPackage*>
+//#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_t ABI::Windows::Foundation::Collections::IVectorView<ABI::Microsoft::Management::Deployment::ICatalogPackage*>
+#endif // !defined(RO_NO_TEMPLATE_NAME)
+#endif /* DEF___FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_USE */
+
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
 #ifndef DEF___FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageMatchFilter_USE
 #define DEF___FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageMatchFilter_USE
 #if !defined(RO_NO_TEMPLATE_NAME)
@@ -696,6 +891,38 @@ typedef IVectorView<ABI::Microsoft::Management::Deployment::PackageVersionId*> _
 //#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionId_t ABI::Windows::Foundation::Collections::IVectorView<ABI::Microsoft::Management::Deployment::IPackageVersionId*>
 #endif // !defined(RO_NO_TEMPLATE_NAME)
 #endif /* DEF___FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionId_USE */
+
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+#ifndef DEF___FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_USE
+#define DEF___FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_USE
+#if !defined(RO_NO_TEMPLATE_NAME)
+namespace ABI { namespace Windows { namespace Foundation { namespace Collections {
+template <>
+struct __declspec(uuid("99aa6834-0110-5f9a-bff0-c789c476b218"))
+IVectorView<ABI::Microsoft::Management::Deployment::PackageVersionInfo*> : IVectorView_impl<ABI::Windows::Foundation::Internal::AggregateType<ABI::Microsoft::Management::Deployment::PackageVersionInfo*, ABI::Microsoft::Management::Deployment::IPackageVersionInfo*>> 
+{
+    static const wchar_t* z_get_rc_name_impl() 
+    {
+        return L"Windows.Foundation.Collections.IVectorView`1<Microsoft.Management.Deployment.PackageVersionInfo>"; 
+    }
+};
+// Define a typedef for the parameterized interface specialization's mangled name.
+// This allows code which uses the mangled name for the parameterized interface to access the
+// correct parameterized interface specialization.
+typedef IVectorView<ABI::Microsoft::Management::Deployment::PackageVersionInfo*> __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_t;
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo ABI::Windows::Foundation::Collections::__FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_t
+/* Collections */ } /* Foundation */ } /* Windows */ } /* ABI */ } 
+
+////  Define an alias for the C version of the interface for compatibility purposes.
+//#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo ABI::Windows::Foundation::Collections::IVectorView<ABI::Microsoft::Management::Deployment::IPackageVersionInfo*>
+//#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_t ABI::Windows::Foundation::Collections::IVectorView<ABI::Microsoft::Management::Deployment::IPackageVersionInfo*>
+#endif // !defined(RO_NO_TEMPLATE_NAME)
+#endif /* DEF___FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_USE */
 
 
 #endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
@@ -767,6 +994,38 @@ typedef IVector<ABI::Microsoft::Management::Deployment::AppCatalog*> __FIVector_
 
 #if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
 
+#ifndef DEF___FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_USE
+#define DEF___FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_USE
+#if !defined(RO_NO_TEMPLATE_NAME)
+namespace ABI { namespace Windows { namespace Foundation { namespace Collections {
+template <>
+struct __declspec(uuid("d506db16-961f-56ff-a312-652e9f68b36c"))
+IVector<ABI::Microsoft::Management::Deployment::CatalogPackage*> : IVector_impl<ABI::Windows::Foundation::Internal::AggregateType<ABI::Microsoft::Management::Deployment::CatalogPackage*, ABI::Microsoft::Management::Deployment::ICatalogPackage*>> 
+{
+    static const wchar_t* z_get_rc_name_impl() 
+    {
+        return L"Windows.Foundation.Collections.IVector`1<Microsoft.Management.Deployment.CatalogPackage>"; 
+    }
+};
+// Define a typedef for the parameterized interface specialization's mangled name.
+// This allows code which uses the mangled name for the parameterized interface to access the
+// correct parameterized interface specialization.
+typedef IVector<ABI::Microsoft::Management::Deployment::CatalogPackage*> __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_t;
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage ABI::Windows::Foundation::Collections::__FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_t
+/* Collections */ } /* Foundation */ } /* Windows */ } /* ABI */ } 
+
+////  Define an alias for the C version of the interface for compatibility purposes.
+//#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage ABI::Windows::Foundation::Collections::IVector<ABI::Microsoft::Management::Deployment::ICatalogPackage*>
+//#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_t ABI::Windows::Foundation::Collections::IVector<ABI::Microsoft::Management::Deployment::ICatalogPackage*>
+#endif // !defined(RO_NO_TEMPLATE_NAME)
+#endif /* DEF___FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_USE */
+
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
 #ifndef DEF___FIVector_1_Microsoft__CManagement__CDeployment__CPackageMatchFilter_USE
 #define DEF___FIVector_1_Microsoft__CManagement__CDeployment__CPackageMatchFilter_USE
 #if !defined(RO_NO_TEMPLATE_NAME)
@@ -792,6 +1051,38 @@ typedef IVector<ABI::Microsoft::Management::Deployment::PackageMatchFilter*> __F
 //#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageMatchFilter_t ABI::Windows::Foundation::Collections::IVector<ABI::Microsoft::Management::Deployment::IPackageMatchFilter*>
 #endif // !defined(RO_NO_TEMPLATE_NAME)
 #endif /* DEF___FIVector_1_Microsoft__CManagement__CDeployment__CPackageMatchFilter_USE */
+
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+#ifndef DEF___FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_USE
+#define DEF___FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_USE
+#if !defined(RO_NO_TEMPLATE_NAME)
+namespace ABI { namespace Windows { namespace Foundation { namespace Collections {
+template <>
+struct __declspec(uuid("ae78ee94-0117-54dc-87e8-1925d2c394a9"))
+IVector<ABI::Microsoft::Management::Deployment::PackageVersionInfo*> : IVector_impl<ABI::Windows::Foundation::Internal::AggregateType<ABI::Microsoft::Management::Deployment::PackageVersionInfo*, ABI::Microsoft::Management::Deployment::IPackageVersionInfo*>> 
+{
+    static const wchar_t* z_get_rc_name_impl() 
+    {
+        return L"Windows.Foundation.Collections.IVector`1<Microsoft.Management.Deployment.PackageVersionInfo>"; 
+    }
+};
+// Define a typedef for the parameterized interface specialization's mangled name.
+// This allows code which uses the mangled name for the parameterized interface to access the
+// correct parameterized interface specialization.
+typedef IVector<ABI::Microsoft::Management::Deployment::PackageVersionInfo*> __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_t;
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo ABI::Windows::Foundation::Collections::__FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_t
+/* Collections */ } /* Foundation */ } /* Windows */ } /* ABI */ } 
+
+////  Define an alias for the C version of the interface for compatibility purposes.
+//#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo ABI::Windows::Foundation::Collections::IVector<ABI::Microsoft::Management::Deployment::IPackageVersionInfo*>
+//#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_t ABI::Windows::Foundation::Collections::IVector<ABI::Microsoft::Management::Deployment::IPackageVersionInfo*>
+#endif // !defined(RO_NO_TEMPLATE_NAME)
+#endif /* DEF___FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_USE */
 
 
 #endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
@@ -1226,6 +1517,7 @@ namespace ABI {
 
 
 
+
 namespace ABI {
     namespace Microsoft {
         namespace Management {
@@ -1247,16 +1539,6 @@ namespace ABI {
     } /* Microsoft */
 } /* ABI */
 
-
-namespace ABI {
-    namespace Microsoft {
-        namespace Management {
-            namespace Deployment {
-                class CatalogPackage;
-            } /* Deployment */
-        } /* Management */
-    } /* Microsoft */
-} /* ABI */
 
 
 namespace ABI {
@@ -1296,16 +1578,17 @@ namespace ABI {
 
 
 
+
+
 namespace ABI {
     namespace Microsoft {
         namespace Management {
             namespace Deployment {
-                class PackageVersionInfo;
+                class Vectors;
             } /* Deployment */
         } /* Management */
     } /* Microsoft */
 } /* ABI */
-
 
 
 
@@ -2050,16 +2333,13 @@ namespace ABI {
     namespace Microsoft {
         namespace Management {
             namespace Deployment {
-                /* [object, uuid("56EB7DE1-7A1B-5927-87C0-F483608C3C68"), exclusiveto, contract] */
-                MIDL_INTERFACE("56EB7DE1-7A1B-5927-87C0-F483608C3C68")
+                /* [object, uuid("A3C9C90C-F7B1-5804-8539-CD27BAD3F177"), exclusiveto, contract] */
+                MIDL_INTERFACE("A3C9C90C-F7B1-5804-8539-CD27BAD3F177")
                 IGetCompositeAppCatalogOptions : public IInspectable
                 {
                 public:
                     /* [propget] */virtual HRESULT STDMETHODCALLTYPE get_Catalogs(
                         /* [retval, out] */__FIVector_1_Microsoft__CManagement__CDeployment__CAppCatalog * * value
-                        ) = 0;
-                    /* [propput] */virtual HRESULT STDMETHODCALLTYPE put_Catalogs(
-                        /* [in] */__FIVector_1_Microsoft__CManagement__CDeployment__CAppCatalog * value
                         ) = 0;
                     /* [propget] */virtual HRESULT STDMETHODCALLTYPE get_CompositeSearchBehavior(
                         /* [retval, out] */ABI::Microsoft::Management::Deployment::CompositeSearchBehavior * value
@@ -2448,6 +2728,57 @@ EXTERN_C const IID IID___x_ABI_CMicrosoft_CManagement_CDeployment_CIResultMatch;
 
 /*
  *
+ * Interface Microsoft.Management.Deployment.IVectors
+ *
+ * Introduced to Microsoft.Management.Deployment.WindowsPackageManagerContract in version 1.0
+ *
+ *
+ * Interface is a part of the implementation of type Microsoft.Management.Deployment.Vectors
+ *
+ *
+ */
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+#if !defined(____x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_INTERFACE_DEFINED__)
+#define ____x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_INTERFACE_DEFINED__
+extern const __declspec(selectany) _Null_terminated_ WCHAR InterfaceName_Microsoft_Management_Deployment_IVectors[] = L"Microsoft.Management.Deployment.IVectors";
+namespace ABI {
+    namespace Microsoft {
+        namespace Management {
+            namespace Deployment {
+                /* [object, uuid("0C0461FC-0BCA-5E40-BC9D-9954167B80ED"), exclusiveto, contract] */
+                MIDL_INTERFACE("0C0461FC-0BCA-5E40-BC9D-9954167B80ED")
+                IVectors : public IInspectable
+                {
+                public:
+                    virtual HRESULT STDMETHODCALLTYPE GetCatalogPackageVector(
+                        /* [retval, out] */__FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * * result
+                        ) = 0;
+                    virtual HRESULT STDMETHODCALLTYPE GetCatalogPackageVectorView(
+                        /* [retval, out] */__FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage * * result
+                        ) = 0;
+                    virtual HRESULT STDMETHODCALLTYPE GetPackageVersionInfoVector(
+                        /* [retval, out] */__FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * * result
+                        ) = 0;
+                    virtual HRESULT STDMETHODCALLTYPE GetPackageVersionInfoVectorView(
+                        /* [retval, out] */__FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * * result
+                        ) = 0;
+                    
+                };
+
+                extern MIDL_CONST_ID IID & IID_IVectors=_uuidof(IVectors);
+                
+            } /* Deployment */
+        } /* Management */
+    } /* Microsoft */
+} /* ABI */
+
+EXTERN_C const IID IID___x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors;
+#endif /* !defined(____x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_INTERFACE_DEFINED__) */
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+/*
+ *
  * Class Microsoft.Management.Deployment.AppCatalog
  *
  * Introduced to Microsoft.Management.Deployment.WindowsPackageManagerContract in version 1.0
@@ -2762,6 +3093,33 @@ extern const __declspec(selectany) _Null_terminated_ WCHAR RuntimeClass_Microsof
 #endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
 
 
+/*
+ *
+ * Class Microsoft.Management.Deployment.Vectors
+ *
+ * Introduced to Microsoft.Management.Deployment.WindowsPackageManagerContract in version 1.0
+ *
+ *
+ * RuntimeClass can be activated.
+ *   Type can be activated via RoActivateInstance starting with version 1.0 of the Microsoft.Management.Deployment.WindowsPackageManagerContract API contract
+ *
+ * Class implements the following interfaces:
+ *    Microsoft.Management.Deployment.IVectors ** Default Interface **
+ *
+ * Class Threading Model:  Both Single and Multi Threaded Apartment
+ *
+ * Class Marshaling Behavior:  Agile - Class is agile
+ *
+ */
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+#ifndef RUNTIMECLASS_Microsoft_Management_Deployment_Vectors_DEFINED
+#define RUNTIMECLASS_Microsoft_Management_Deployment_Vectors_DEFINED
+extern const __declspec(selectany) _Null_terminated_ WCHAR RuntimeClass_Microsoft_Management_Deployment_Vectors[] = L"Microsoft.Management.Deployment.Vectors";
+#endif
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
 
 
 #else // !defined(__cplusplus)
@@ -2849,6 +3207,12 @@ typedef interface __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInf
 typedef interface __x_ABI_CMicrosoft_CManagement_CDeployment_CIResultMatch __x_ABI_CMicrosoft_CManagement_CDeployment_CIResultMatch;
 
 #endif // ____x_ABI_CMicrosoft_CManagement_CDeployment_CIResultMatch_FWD_DEFINED__
+
+#ifndef ____x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_FWD_DEFINED__
+#define ____x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_FWD_DEFINED__
+typedef interface __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors;
+
+#endif // ____x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_FWD_DEFINED__
 
 // Parameterized interface forward declarations (C)
 
@@ -3012,6 +3376,168 @@ interface __FIIterable_1_Microsoft__CManagement__CDeployment__CAppCatalog
 
 
 #endif // ____FIIterable_1_Microsoft__CManagement__CDeployment__CAppCatalog_INTERFACE_DEFINED__
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+#if !defined(____FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_INTERFACE_DEFINED__)
+#define ____FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_INTERFACE_DEFINED__
+
+typedef interface __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage;
+
+//  Declare the parameterized interface IID.
+EXTERN_C const IID IID___FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage;
+
+typedef struct __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackageVtbl
+{
+    BEGIN_INTERFACE
+
+    HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+        __RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [in] */ __RPC__in REFIID riid,
+        /* [annotation][iid_is][out] */ 
+        _COM_Outptr_  void **ppvObject);
+    ULONG ( STDMETHODCALLTYPE *AddRef )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This);
+    ULONG ( STDMETHODCALLTYPE *Release )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This);
+    HRESULT ( STDMETHODCALLTYPE *GetIids )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [out] */ __RPC__out ULONG *iidCount,
+        /* [size_is][size_is][out] */ __RPC__deref_out_ecount_full_opt(*iidCount) IID **iids);
+
+    HRESULT ( STDMETHODCALLTYPE *GetRuntimeClassName )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [out] */ __RPC__deref_out_opt HSTRING *className);
+    HRESULT ( STDMETHODCALLTYPE *GetTrustLevel )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [out] */ __RPC__out TrustLevel *trustLevel);
+
+    /* [propget] */ HRESULT ( STDMETHODCALLTYPE *get_Current )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [retval][out] */ __RPC__out __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * *current);
+    /* [propget] */ HRESULT ( STDMETHODCALLTYPE *get_HasCurrent )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [retval][out] */ __RPC__out boolean *hasCurrent);
+    HRESULT ( STDMETHODCALLTYPE *MoveNext )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [retval][out] */ __RPC__out boolean *hasCurrent);
+    HRESULT ( STDMETHODCALLTYPE *GetMany )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [in] */ unsigned int capacity,
+        /* [size_is][length_is][out] */ __RPC__out_ecount_part(capacity, *actual) __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * *items,
+        /* [retval][out] */ __RPC__out unsigned int *actual);
+
+    END_INTERFACE
+} __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackageVtbl;
+
+interface __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage
+{
+    CONST_VTBL struct __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackageVtbl *lpVtbl;
+};
+
+
+
+#ifdef COBJMACROS
+
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetIids(This,iidCount,iids)	\
+    ( (This)->lpVtbl -> GetIids(This,iidCount,iids) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetRuntimeClassName(This,className)	\
+    ( (This)->lpVtbl -> GetRuntimeClassName(This,className) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetTrustLevel(This,trustLevel)	\
+    ( (This)->lpVtbl -> GetTrustLevel(This,trustLevel) ) 
+
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_get_Current(This,current)	\
+    ( (This)->lpVtbl -> get_Current(This,current) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_get_HasCurrent(This,hasCurrent)	\
+    ( (This)->lpVtbl -> get_HasCurrent(This,hasCurrent) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_MoveNext(This,hasCurrent)	\
+    ( (This)->lpVtbl -> MoveNext(This,hasCurrent) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetMany(This,capacity,items,actual)	\
+    ( (This)->lpVtbl -> GetMany(This,capacity,items,actual) ) 
+
+#endif /* COBJMACROS */
+
+
+#endif // ____FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage_INTERFACE_DEFINED__
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+#if !defined(____FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_INTERFACE_DEFINED__)
+#define ____FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_INTERFACE_DEFINED__
+
+typedef interface __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage;
+
+//  Declare the parameterized interface IID.
+EXTERN_C const IID IID___FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage;
+
+typedef  struct __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackageVtbl
+{
+    BEGIN_INTERFACE
+
+    HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+        __RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [in] */ __RPC__in REFIID riid,
+        /* [annotation][iid_is][out] */ 
+        _COM_Outptr_  void **ppvObject);
+
+    ULONG ( STDMETHODCALLTYPE *AddRef )(__RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This);
+
+    ULONG ( STDMETHODCALLTYPE *Release )(__RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This);
+
+    HRESULT ( STDMETHODCALLTYPE *GetIids )(__RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+                                           /* [out] */ __RPC__out ULONG *iidCount,
+                                           /* [size_is][size_is][out] */ __RPC__deref_out_ecount_full_opt(*iidCount) IID **iids);
+
+    HRESULT ( STDMETHODCALLTYPE *GetRuntimeClassName )(__RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [out] */ __RPC__deref_out_opt HSTRING *className);
+
+    HRESULT ( STDMETHODCALLTYPE *GetTrustLevel )(__RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [out] */ __RPC__out TrustLevel *trustLevel);
+
+    HRESULT ( STDMETHODCALLTYPE *First )(__RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [retval][out] */ __RPC__deref_out_opt __FIIterator_1_Microsoft__CManagement__CDeployment__CCatalogPackage **first);
+
+    END_INTERFACE
+} __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackageVtbl;
+
+interface __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage
+{
+    CONST_VTBL struct __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackageVtbl *lpVtbl;
+};
+
+#ifdef COBJMACROS
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetIids(This,iidCount,iids)	\
+    ( (This)->lpVtbl -> GetIids(This,iidCount,iids) ) 
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetRuntimeClassName(This,className)	\
+    ( (This)->lpVtbl -> GetRuntimeClassName(This,className) ) 
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetTrustLevel(This,trustLevel)	\
+    ( (This)->lpVtbl -> GetTrustLevel(This,trustLevel) ) 
+
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_First(This,first)	\
+    ( (This)->lpVtbl -> First(This,first) ) 
+
+#endif /* COBJMACROS */
+
+
+#endif // ____FIIterable_1_Microsoft__CManagement__CDeployment__CCatalogPackage_INTERFACE_DEFINED__
 
 #endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
 
@@ -3341,6 +3867,168 @@ interface __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionId
 
 
 #if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+#if !defined(____FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_INTERFACE_DEFINED__)
+#define ____FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_INTERFACE_DEFINED__
+
+typedef interface __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo;
+
+//  Declare the parameterized interface IID.
+EXTERN_C const IID IID___FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo;
+
+typedef struct __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfoVtbl
+{
+    BEGIN_INTERFACE
+
+    HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+        __RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [in] */ __RPC__in REFIID riid,
+        /* [annotation][iid_is][out] */ 
+        _COM_Outptr_  void **ppvObject);
+    ULONG ( STDMETHODCALLTYPE *AddRef )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This);
+    ULONG ( STDMETHODCALLTYPE *Release )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This);
+    HRESULT ( STDMETHODCALLTYPE *GetIids )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [out] */ __RPC__out ULONG *iidCount,
+        /* [size_is][size_is][out] */ __RPC__deref_out_ecount_full_opt(*iidCount) IID **iids);
+
+    HRESULT ( STDMETHODCALLTYPE *GetRuntimeClassName )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [out] */ __RPC__deref_out_opt HSTRING *className);
+    HRESULT ( STDMETHODCALLTYPE *GetTrustLevel )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [out] */ __RPC__out TrustLevel *trustLevel);
+
+    /* [propget] */ HRESULT ( STDMETHODCALLTYPE *get_Current )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [retval][out] */ __RPC__out __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * *current);
+    /* [propget] */ HRESULT ( STDMETHODCALLTYPE *get_HasCurrent )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [retval][out] */ __RPC__out boolean *hasCurrent);
+    HRESULT ( STDMETHODCALLTYPE *MoveNext )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [retval][out] */ __RPC__out boolean *hasCurrent);
+    HRESULT ( STDMETHODCALLTYPE *GetMany )(__RPC__in __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [in] */ unsigned int capacity,
+        /* [size_is][length_is][out] */ __RPC__out_ecount_part(capacity, *actual) __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * *items,
+        /* [retval][out] */ __RPC__out unsigned int *actual);
+
+    END_INTERFACE
+} __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfoVtbl;
+
+interface __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo
+{
+    CONST_VTBL struct __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfoVtbl *lpVtbl;
+};
+
+
+
+#ifdef COBJMACROS
+
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetIids(This,iidCount,iids)	\
+    ( (This)->lpVtbl -> GetIids(This,iidCount,iids) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetRuntimeClassName(This,className)	\
+    ( (This)->lpVtbl -> GetRuntimeClassName(This,className) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetTrustLevel(This,trustLevel)	\
+    ( (This)->lpVtbl -> GetTrustLevel(This,trustLevel) ) 
+
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_get_Current(This,current)	\
+    ( (This)->lpVtbl -> get_Current(This,current) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_get_HasCurrent(This,hasCurrent)	\
+    ( (This)->lpVtbl -> get_HasCurrent(This,hasCurrent) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_MoveNext(This,hasCurrent)	\
+    ( (This)->lpVtbl -> MoveNext(This,hasCurrent) ) 
+
+#define __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetMany(This,capacity,items,actual)	\
+    ( (This)->lpVtbl -> GetMany(This,capacity,items,actual) ) 
+
+#endif /* COBJMACROS */
+
+
+#endif // ____FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_INTERFACE_DEFINED__
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+#if !defined(____FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_INTERFACE_DEFINED__)
+#define ____FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_INTERFACE_DEFINED__
+
+typedef interface __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo;
+
+//  Declare the parameterized interface IID.
+EXTERN_C const IID IID___FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo;
+
+typedef  struct __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfoVtbl
+{
+    BEGIN_INTERFACE
+
+    HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+        __RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [in] */ __RPC__in REFIID riid,
+        /* [annotation][iid_is][out] */ 
+        _COM_Outptr_  void **ppvObject);
+
+    ULONG ( STDMETHODCALLTYPE *AddRef )(__RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This);
+
+    ULONG ( STDMETHODCALLTYPE *Release )(__RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This);
+
+    HRESULT ( STDMETHODCALLTYPE *GetIids )(__RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+                                           /* [out] */ __RPC__out ULONG *iidCount,
+                                           /* [size_is][size_is][out] */ __RPC__deref_out_ecount_full_opt(*iidCount) IID **iids);
+
+    HRESULT ( STDMETHODCALLTYPE *GetRuntimeClassName )(__RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [out] */ __RPC__deref_out_opt HSTRING *className);
+
+    HRESULT ( STDMETHODCALLTYPE *GetTrustLevel )(__RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [out] */ __RPC__out TrustLevel *trustLevel);
+
+    HRESULT ( STDMETHODCALLTYPE *First )(__RPC__in __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [retval][out] */ __RPC__deref_out_opt __FIIterator_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo **first);
+
+    END_INTERFACE
+} __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfoVtbl;
+
+interface __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo
+{
+    CONST_VTBL struct __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfoVtbl *lpVtbl;
+};
+
+#ifdef COBJMACROS
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetIids(This,iidCount,iids)	\
+    ( (This)->lpVtbl -> GetIids(This,iidCount,iids) ) 
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetRuntimeClassName(This,className)	\
+    ( (This)->lpVtbl -> GetRuntimeClassName(This,className) ) 
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetTrustLevel(This,trustLevel)	\
+    ( (This)->lpVtbl -> GetTrustLevel(This,trustLevel) ) 
+
+
+#define __FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_First(This,first)	\
+    ( (This)->lpVtbl -> First(This,first) ) 
+
+#endif /* COBJMACROS */
+
+
+#endif // ____FIIterable_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_INTERFACE_DEFINED__
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
 #if !defined(____FIIterator_1_Microsoft__CManagement__CDeployment__CResultMatch_INTERFACE_DEFINED__)
 #define ____FIIterator_1_Microsoft__CManagement__CDeployment__CResultMatch_INTERFACE_DEFINED__
 
@@ -3614,6 +4302,117 @@ interface __FIVectorView_1_Microsoft__CManagement__CDeployment__CAppCatalog
 
 
 #if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+#if !defined(____FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_INTERFACE_DEFINED__)
+#define ____FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_INTERFACE_DEFINED__
+
+typedef interface __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage;
+
+//  Declare the parameterized interface IID.
+EXTERN_C const IID IID___FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage;
+
+typedef struct __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackageVtbl
+{
+    BEGIN_INTERFACE
+
+    HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+        __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [in] */ __RPC__in REFIID riid,
+        /* [annotation][iid_is][out] */ 
+        _COM_Outptr_  void **ppvObject);
+
+    ULONG ( STDMETHODCALLTYPE *AddRef )( __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This);
+
+    ULONG ( STDMETHODCALLTYPE *Release )( __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This);
+
+    HRESULT ( STDMETHODCALLTYPE *GetIids )( __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+                                            /* [out] */ __RPC__out ULONG *iidCount,
+                                            /* [size_is][size_is][out] */ __RPC__deref_out_ecount_full_opt(*iidCount) IID **iids);
+
+    HRESULT ( STDMETHODCALLTYPE *GetRuntimeClassName )( 
+        __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+            /* [out] */ __RPC__deref_out_opt HSTRING *className);
+
+    HRESULT ( STDMETHODCALLTYPE *GetTrustLevel )( 
+        __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+            /* [out] */ __RPC__out TrustLevel *trustLevel);
+
+    HRESULT ( STDMETHODCALLTYPE *GetAt )( 
+                                         __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+                                         /* [in] */ unsigned int index,
+                                         /* [retval][out] */ __RPC__out __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * *item);
+
+        /* [propget] */ HRESULT ( STDMETHODCALLTYPE *get_Size )( 
+            __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+            /* [retval][out] */ __RPC__out unsigned int *size);
+
+        HRESULT ( STDMETHODCALLTYPE *IndexOf )( 
+                                               __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+            /* [in] */ __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * item,
+            /* [out] */ __RPC__out unsigned int *index,
+            /* [retval][out] */ __RPC__out boolean *found);
+
+        HRESULT ( STDMETHODCALLTYPE *GetMany )( 
+                                               __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+            /* [in] */ unsigned int startIndex,
+            /* [in] */ unsigned int capacity,
+            /* [size_is][length_is][out] */ __RPC__out_ecount_part(capacity, *actual) __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * *items,
+            /* [retval][out] */ __RPC__out unsigned int *actual);
+
+        END_INTERFACE
+} __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackageVtbl;
+
+interface __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage
+{
+    CONST_VTBL struct __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackageVtbl *lpVtbl;
+};
+
+
+
+#ifdef COBJMACROS
+
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetIids(This,iidCount,iids)	\
+    ( (This)->lpVtbl -> GetIids(This,iidCount,iids) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetRuntimeClassName(This,className)	\
+    ( (This)->lpVtbl -> GetRuntimeClassName(This,className) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetTrustLevel(This,trustLevel)	\
+    ( (This)->lpVtbl -> GetTrustLevel(This,trustLevel) ) 
+
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetAt(This,index,item)	\
+    ( (This)->lpVtbl -> GetAt(This,index,item) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_get_Size(This,size)	\
+    ( (This)->lpVtbl -> get_Size(This,size) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_IndexOf(This,item,index,found)	\
+    ( (This)->lpVtbl -> IndexOf(This,item,index,found) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetMany(This,startIndex,capacity,items,actual)	\
+    ( (This)->lpVtbl -> GetMany(This,startIndex,capacity,items,actual) ) 
+
+#endif /* COBJMACROS */
+
+
+
+#endif // ____FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage_INTERFACE_DEFINED__
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
 #if !defined(____FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageMatchFilter_INTERFACE_DEFINED__)
 #define ____FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageMatchFilter_INTERFACE_DEFINED__
 
@@ -3831,6 +4630,117 @@ interface __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionI
 
 
 #endif // ____FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionId_INTERFACE_DEFINED__
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+#if !defined(____FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_INTERFACE_DEFINED__)
+#define ____FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_INTERFACE_DEFINED__
+
+typedef interface __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo;
+
+//  Declare the parameterized interface IID.
+EXTERN_C const IID IID___FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo;
+
+typedef struct __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfoVtbl
+{
+    BEGIN_INTERFACE
+
+    HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+        __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [in] */ __RPC__in REFIID riid,
+        /* [annotation][iid_is][out] */ 
+        _COM_Outptr_  void **ppvObject);
+
+    ULONG ( STDMETHODCALLTYPE *AddRef )( __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This);
+
+    ULONG ( STDMETHODCALLTYPE *Release )( __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This);
+
+    HRESULT ( STDMETHODCALLTYPE *GetIids )( __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+                                            /* [out] */ __RPC__out ULONG *iidCount,
+                                            /* [size_is][size_is][out] */ __RPC__deref_out_ecount_full_opt(*iidCount) IID **iids);
+
+    HRESULT ( STDMETHODCALLTYPE *GetRuntimeClassName )( 
+        __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+            /* [out] */ __RPC__deref_out_opt HSTRING *className);
+
+    HRESULT ( STDMETHODCALLTYPE *GetTrustLevel )( 
+        __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+            /* [out] */ __RPC__out TrustLevel *trustLevel);
+
+    HRESULT ( STDMETHODCALLTYPE *GetAt )( 
+                                         __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+                                         /* [in] */ unsigned int index,
+                                         /* [retval][out] */ __RPC__out __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * *item);
+
+        /* [propget] */ HRESULT ( STDMETHODCALLTYPE *get_Size )( 
+            __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+            /* [retval][out] */ __RPC__out unsigned int *size);
+
+        HRESULT ( STDMETHODCALLTYPE *IndexOf )( 
+                                               __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+            /* [in] */ __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * item,
+            /* [out] */ __RPC__out unsigned int *index,
+            /* [retval][out] */ __RPC__out boolean *found);
+
+        HRESULT ( STDMETHODCALLTYPE *GetMany )( 
+                                               __RPC__in __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+            /* [in] */ unsigned int startIndex,
+            /* [in] */ unsigned int capacity,
+            /* [size_is][length_is][out] */ __RPC__out_ecount_part(capacity, *actual) __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * *items,
+            /* [retval][out] */ __RPC__out unsigned int *actual);
+
+        END_INTERFACE
+} __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfoVtbl;
+
+interface __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo
+{
+    CONST_VTBL struct __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfoVtbl *lpVtbl;
+};
+
+
+
+#ifdef COBJMACROS
+
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetIids(This,iidCount,iids)	\
+    ( (This)->lpVtbl -> GetIids(This,iidCount,iids) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetRuntimeClassName(This,className)	\
+    ( (This)->lpVtbl -> GetRuntimeClassName(This,className) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetTrustLevel(This,trustLevel)	\
+    ( (This)->lpVtbl -> GetTrustLevel(This,trustLevel) ) 
+
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetAt(This,index,item)	\
+    ( (This)->lpVtbl -> GetAt(This,index,item) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_get_Size(This,size)	\
+    ( (This)->lpVtbl -> get_Size(This,size) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_IndexOf(This,item,index,found)	\
+    ( (This)->lpVtbl -> IndexOf(This,item,index,found) ) 
+
+#define __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetMany(This,startIndex,capacity,items,actual)	\
+    ( (This)->lpVtbl -> GetMany(This,startIndex,capacity,items,actual) ) 
+
+#endif /* COBJMACROS */
+
+
+
+#endif // ____FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_INTERFACE_DEFINED__
 
 #endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
 
@@ -4090,6 +5000,149 @@ interface __FIVector_1_Microsoft__CManagement__CDeployment__CAppCatalog
 
 
 #if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+#if !defined(____FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_INTERFACE_DEFINED__)
+#define ____FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_INTERFACE_DEFINED__
+
+typedef interface __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage;
+
+//  Declare the parameterized interface IID.
+EXTERN_C const IID IID___FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage;
+
+typedef struct __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackageVtbl
+{
+    BEGIN_INTERFACE
+
+    HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+        __RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+            /* [in] */ __RPC__in REFIID riid,
+            /* [annotation][iid_is][out] */ 
+        _COM_Outptr_  void **ppvObject);
+
+    ULONG ( STDMETHODCALLTYPE *AddRef )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This);
+    ULONG ( STDMETHODCALLTYPE *Release )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This);
+    HRESULT ( STDMETHODCALLTYPE *GetIids )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [out] */ __RPC__out ULONG *iidCount,
+        /* [size_is][size_is][out] */ __RPC__deref_out_ecount_full_opt(*iidCount) IID **iids);
+
+    HRESULT ( STDMETHODCALLTYPE *GetRuntimeClassName )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [out] */ __RPC__deref_out_opt __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * *className);
+    HRESULT ( STDMETHODCALLTYPE *GetTrustLevel )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [out] */ __RPC__out TrustLevel *trustLevel);
+
+    HRESULT ( STDMETHODCALLTYPE *GetAt )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [in] */ unsigned int index,
+        /* [retval][out] */ __RPC__deref_out_opt __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * *item);
+
+    /* [propget] */ HRESULT ( STDMETHODCALLTYPE *get_Size )( 
+        __RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [retval][out] */ __RPC__out unsigned int *size);
+
+    HRESULT ( STDMETHODCALLTYPE *GetView )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [retval][out] */ __RPC__deref_out_opt __FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage **view);
+
+    HRESULT ( STDMETHODCALLTYPE *IndexOf )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [in] */ __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * item,
+        /* [out] */ __RPC__out unsigned int *index,
+        /* [retval][out] */ __RPC__out boolean *found);
+
+    HRESULT ( STDMETHODCALLTYPE *SetAt )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [in] */ unsigned int index,
+        /* [in] */ __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * item);
+
+    HRESULT ( STDMETHODCALLTYPE *InsertAt )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [in] */ unsigned int index,
+        /* [in] */ __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * item);
+
+    HRESULT ( STDMETHODCALLTYPE *RemoveAt )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [in] */ unsigned int index);
+    HRESULT ( STDMETHODCALLTYPE *Append )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This, /* [in] */ __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * item);
+    HRESULT ( STDMETHODCALLTYPE *RemoveAtEnd )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This);
+    HRESULT ( STDMETHODCALLTYPE *Clear )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This);
+    HRESULT ( STDMETHODCALLTYPE *GetMany )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [in] */ unsigned int startIndex,
+        /* [in] */ unsigned int capacity,
+        /* [size_is][length_is][out] */ __RPC__out_ecount_part(capacity, *actual) __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * *items,
+        /* [retval][out] */ __RPC__out unsigned int *actual);
+
+    HRESULT ( STDMETHODCALLTYPE *ReplaceAll )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * This,
+        /* [in] */ unsigned int count,
+        /* [size_is][in] */ __RPC__in_ecount_full(count) __x_ABI_CMicrosoft_CManagement_CDeployment_CICatalogPackage * *value);
+
+    END_INTERFACE
+} __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackageVtbl;
+
+interface __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage
+{
+    CONST_VTBL struct __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackageVtbl *lpVtbl;
+};
+
+
+
+#ifdef COBJMACROS
+
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetIids(This,iidCount,iids)	\
+    ( (This)->lpVtbl -> GetIids(This,iidCount,iids) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetRuntimeClassName(This,className)	\
+    ( (This)->lpVtbl -> GetRuntimeClassName(This,className) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetTrustLevel(This,trustLevel)	\
+    ( (This)->lpVtbl -> GetTrustLevel(This,trustLevel) ) 
+
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetAt(This,index,item)	\
+    ( (This)->lpVtbl -> GetAt(This,index,item) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_get_Size(This,size)	\
+    ( (This)->lpVtbl -> get_Size(This,size) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetView(This,view)	\
+    ( (This)->lpVtbl -> GetView(This,view) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_IndexOf(This,item,index,found)	\
+    ( (This)->lpVtbl -> IndexOf(This,item,index,found) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_SetAt(This,index,item)	\
+    ( (This)->lpVtbl -> SetAt(This,index,item) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_InsertAt(This,index,item)	\
+    ( (This)->lpVtbl -> InsertAt(This,index,item) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_RemoveAt(This,index)	\
+    ( (This)->lpVtbl -> RemoveAt(This,index) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_Append(This,item)	\
+    ( (This)->lpVtbl -> Append(This,item) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_RemoveAtEnd(This)	\
+    ( (This)->lpVtbl -> RemoveAtEnd(This) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_Clear(This)	\
+    ( (This)->lpVtbl -> Clear(This) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_GetMany(This,startIndex,capacity,items,actual)	\
+    ( (This)->lpVtbl -> GetMany(This,startIndex,capacity,items,actual) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_ReplaceAll(This,count,value)	\
+    ( (This)->lpVtbl -> ReplaceAll(This,count,value) ) 
+
+#endif /* COBJMACROS */
+
+
+
+#endif // ____FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage_INTERFACE_DEFINED__
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
 #if !defined(____FIVector_1_Microsoft__CManagement__CDeployment__CPackageMatchFilter_INTERFACE_DEFINED__)
 #define ____FIVector_1_Microsoft__CManagement__CDeployment__CPackageMatchFilter_INTERFACE_DEFINED__
 
@@ -4228,6 +5281,149 @@ interface __FIVector_1_Microsoft__CManagement__CDeployment__CPackageMatchFilter
 
 
 #endif // ____FIVector_1_Microsoft__CManagement__CDeployment__CPackageMatchFilter_INTERFACE_DEFINED__
+
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+#if !defined(____FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_INTERFACE_DEFINED__)
+#define ____FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_INTERFACE_DEFINED__
+
+typedef interface __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo;
+
+//  Declare the parameterized interface IID.
+EXTERN_C const IID IID___FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo;
+
+typedef struct __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfoVtbl
+{
+    BEGIN_INTERFACE
+
+    HRESULT ( STDMETHODCALLTYPE *QueryInterface )( 
+        __RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+            /* [in] */ __RPC__in REFIID riid,
+            /* [annotation][iid_is][out] */ 
+        _COM_Outptr_  void **ppvObject);
+
+    ULONG ( STDMETHODCALLTYPE *AddRef )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This);
+    ULONG ( STDMETHODCALLTYPE *Release )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This);
+    HRESULT ( STDMETHODCALLTYPE *GetIids )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [out] */ __RPC__out ULONG *iidCount,
+        /* [size_is][size_is][out] */ __RPC__deref_out_ecount_full_opt(*iidCount) IID **iids);
+
+    HRESULT ( STDMETHODCALLTYPE *GetRuntimeClassName )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [out] */ __RPC__deref_out_opt __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * *className);
+    HRESULT ( STDMETHODCALLTYPE *GetTrustLevel )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [out] */ __RPC__out TrustLevel *trustLevel);
+
+    HRESULT ( STDMETHODCALLTYPE *GetAt )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [in] */ unsigned int index,
+        /* [retval][out] */ __RPC__deref_out_opt __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * *item);
+
+    /* [propget] */ HRESULT ( STDMETHODCALLTYPE *get_Size )( 
+        __RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [retval][out] */ __RPC__out unsigned int *size);
+
+    HRESULT ( STDMETHODCALLTYPE *GetView )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [retval][out] */ __RPC__deref_out_opt __FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo **view);
+
+    HRESULT ( STDMETHODCALLTYPE *IndexOf )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [in] */ __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * item,
+        /* [out] */ __RPC__out unsigned int *index,
+        /* [retval][out] */ __RPC__out boolean *found);
+
+    HRESULT ( STDMETHODCALLTYPE *SetAt )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [in] */ unsigned int index,
+        /* [in] */ __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * item);
+
+    HRESULT ( STDMETHODCALLTYPE *InsertAt )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [in] */ unsigned int index,
+        /* [in] */ __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * item);
+
+    HRESULT ( STDMETHODCALLTYPE *RemoveAt )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [in] */ unsigned int index);
+    HRESULT ( STDMETHODCALLTYPE *Append )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This, /* [in] */ __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * item);
+    HRESULT ( STDMETHODCALLTYPE *RemoveAtEnd )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This);
+    HRESULT ( STDMETHODCALLTYPE *Clear )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This);
+    HRESULT ( STDMETHODCALLTYPE *GetMany )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [in] */ unsigned int startIndex,
+        /* [in] */ unsigned int capacity,
+        /* [size_is][length_is][out] */ __RPC__out_ecount_part(capacity, *actual) __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * *items,
+        /* [retval][out] */ __RPC__out unsigned int *actual);
+
+    HRESULT ( STDMETHODCALLTYPE *ReplaceAll )(__RPC__in __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * This,
+        /* [in] */ unsigned int count,
+        /* [size_is][in] */ __RPC__in_ecount_full(count) __x_ABI_CMicrosoft_CManagement_CDeployment_CIPackageVersionInfo * *value);
+
+    END_INTERFACE
+} __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfoVtbl;
+
+interface __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo
+{
+    CONST_VTBL struct __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfoVtbl *lpVtbl;
+};
+
+
+
+#ifdef COBJMACROS
+
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_QueryInterface(This,riid,ppvObject)	\
+    ( (This)->lpVtbl -> QueryInterface(This,riid,ppvObject) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_AddRef(This)	\
+    ( (This)->lpVtbl -> AddRef(This) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_Release(This)	\
+    ( (This)->lpVtbl -> Release(This) ) 
+
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetIids(This,iidCount,iids)	\
+    ( (This)->lpVtbl -> GetIids(This,iidCount,iids) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetRuntimeClassName(This,className)	\
+    ( (This)->lpVtbl -> GetRuntimeClassName(This,className) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetTrustLevel(This,trustLevel)	\
+    ( (This)->lpVtbl -> GetTrustLevel(This,trustLevel) ) 
+
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetAt(This,index,item)	\
+    ( (This)->lpVtbl -> GetAt(This,index,item) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_get_Size(This,size)	\
+    ( (This)->lpVtbl -> get_Size(This,size) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetView(This,view)	\
+    ( (This)->lpVtbl -> GetView(This,view) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_IndexOf(This,item,index,found)	\
+    ( (This)->lpVtbl -> IndexOf(This,item,index,found) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_SetAt(This,index,item)	\
+    ( (This)->lpVtbl -> SetAt(This,index,item) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_InsertAt(This,index,item)	\
+    ( (This)->lpVtbl -> InsertAt(This,index,item) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_RemoveAt(This,index)	\
+    ( (This)->lpVtbl -> RemoveAt(This,index) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_Append(This,item)	\
+    ( (This)->lpVtbl -> Append(This,item) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_RemoveAtEnd(This)	\
+    ( (This)->lpVtbl -> RemoveAtEnd(This) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_Clear(This)	\
+    ( (This)->lpVtbl -> Clear(This) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_GetMany(This,startIndex,capacity,items,actual)	\
+    ( (This)->lpVtbl -> GetMany(This,startIndex,capacity,items,actual) ) 
+
+#define __FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_ReplaceAll(This,count,value)	\
+    ( (This)->lpVtbl -> ReplaceAll(This,count,value) ) 
+
+#endif /* COBJMACROS */
+
+
+
+#endif // ____FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo_INTERFACE_DEFINED__
 
 #endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
 
@@ -4821,6 +6017,8 @@ typedef enum __x_ABI_CMicrosoft_CManagement_CDeployment_CPredefinedAppCatalog __
 
 
 typedef struct __x_ABI_CMicrosoft_CManagement_CDeployment_CInstallProgress __x_ABI_CMicrosoft_CManagement_CDeployment_CInstallProgress;
+
+
 
 
 
@@ -5953,7 +7151,7 @@ EXTERN_C const IID IID___x_ABI_CMicrosoft_CManagement_CDeployment_CIFindPackages
 #if !defined(____x_ABI_CMicrosoft_CManagement_CDeployment_CIGetCompositeAppCatalogOptions_INTERFACE_DEFINED__)
 #define ____x_ABI_CMicrosoft_CManagement_CDeployment_CIGetCompositeAppCatalogOptions_INTERFACE_DEFINED__
 extern const __declspec(selectany) _Null_terminated_ WCHAR InterfaceName_Microsoft_Management_Deployment_IGetCompositeAppCatalogOptions[] = L"Microsoft.Management.Deployment.IGetCompositeAppCatalogOptions";
-/* [object, uuid("56EB7DE1-7A1B-5927-87C0-F483608C3C68"), exclusiveto, contract] */
+/* [object, uuid("A3C9C90C-F7B1-5804-8539-CD27BAD3F177"), exclusiveto, contract] */
 typedef struct __x_ABI_CMicrosoft_CManagement_CDeployment_CIGetCompositeAppCatalogOptionsVtbl
 {
     BEGIN_INTERFACE
@@ -5990,10 +7188,6 @@ HRESULT ( STDMETHODCALLTYPE *GetTrustLevel )(
 /* [propget] */HRESULT ( STDMETHODCALLTYPE *get_Catalogs )(
         __x_ABI_CMicrosoft_CManagement_CDeployment_CIGetCompositeAppCatalogOptions * This,
         /* [retval, out] */__FIVector_1_Microsoft__CManagement__CDeployment__CAppCatalog * * value
-        );
-    /* [propput] */HRESULT ( STDMETHODCALLTYPE *put_Catalogs )(
-        __x_ABI_CMicrosoft_CManagement_CDeployment_CIGetCompositeAppCatalogOptions * This,
-        /* [in] */__FIVector_1_Microsoft__CManagement__CDeployment__CAppCatalog * value
         );
     /* [propget] */HRESULT ( STDMETHODCALLTYPE *get_CompositeSearchBehavior )(
         __x_ABI_CMicrosoft_CManagement_CDeployment_CIGetCompositeAppCatalogOptions * This,
@@ -6033,9 +7227,6 @@ interface __x_ABI_CMicrosoft_CManagement_CDeployment_CIGetCompositeAppCatalogOpt
 
 #define __x_ABI_CMicrosoft_CManagement_CDeployment_CIGetCompositeAppCatalogOptions_get_Catalogs(This,value) \
     ( (This)->lpVtbl->get_Catalogs(This,value) )
-
-#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIGetCompositeAppCatalogOptions_put_Catalogs(This,value) \
-    ( (This)->lpVtbl->put_Catalogs(This,value) )
 
 #define __x_ABI_CMicrosoft_CManagement_CDeployment_CIGetCompositeAppCatalogOptions_get_CompositeSearchBehavior(This,value) \
     ( (This)->lpVtbl->get_CompositeSearchBehavior(This,value) )
@@ -6872,6 +8063,120 @@ EXTERN_C const IID IID___x_ABI_CMicrosoft_CManagement_CDeployment_CIResultMatch;
 
 /*
  *
+ * Interface Microsoft.Management.Deployment.IVectors
+ *
+ * Introduced to Microsoft.Management.Deployment.WindowsPackageManagerContract in version 1.0
+ *
+ *
+ * Interface is a part of the implementation of type Microsoft.Management.Deployment.Vectors
+ *
+ *
+ */
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+#if !defined(____x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_INTERFACE_DEFINED__)
+#define ____x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_INTERFACE_DEFINED__
+extern const __declspec(selectany) _Null_terminated_ WCHAR InterfaceName_Microsoft_Management_Deployment_IVectors[] = L"Microsoft.Management.Deployment.IVectors";
+/* [object, uuid("0C0461FC-0BCA-5E40-BC9D-9954167B80ED"), exclusiveto, contract] */
+typedef struct __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectorsVtbl
+{
+    BEGIN_INTERFACE
+    HRESULT ( STDMETHODCALLTYPE *QueryInterface)(
+    __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors * This,
+    /* [in] */ __RPC__in REFIID riid,
+    /* [annotation][iid_is][out] */
+    _COM_Outptr_  void **ppvObject
+    );
+
+ULONG ( STDMETHODCALLTYPE *AddRef )(
+    __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors * This
+    );
+
+ULONG ( STDMETHODCALLTYPE *Release )(
+    __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors * This
+    );
+
+HRESULT ( STDMETHODCALLTYPE *GetIids )(
+    __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors * This,
+    /* [out] */ __RPC__out ULONG *iidCount,
+    /* [size_is][size_is][out] */ __RPC__deref_out_ecount_full_opt(*iidCount) IID **iids
+    );
+
+HRESULT ( STDMETHODCALLTYPE *GetRuntimeClassName )(
+    __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors * This,
+    /* [out] */ __RPC__deref_out_opt HSTRING *className
+    );
+
+HRESULT ( STDMETHODCALLTYPE *GetTrustLevel )(
+    __RPC__in __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors * This,
+    /* [OUT ] */ __RPC__out TrustLevel *trustLevel
+    );
+HRESULT ( STDMETHODCALLTYPE *GetCatalogPackageVector )(
+        __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors * This,
+        /* [retval, out] */__FIVector_1_Microsoft__CManagement__CDeployment__CCatalogPackage * * result
+        );
+    HRESULT ( STDMETHODCALLTYPE *GetCatalogPackageVectorView )(
+        __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors * This,
+        /* [retval, out] */__FIVectorView_1_Microsoft__CManagement__CDeployment__CCatalogPackage * * result
+        );
+    HRESULT ( STDMETHODCALLTYPE *GetPackageVersionInfoVector )(
+        __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors * This,
+        /* [retval, out] */__FIVector_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * * result
+        );
+    HRESULT ( STDMETHODCALLTYPE *GetPackageVersionInfoVectorView )(
+        __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors * This,
+        /* [retval, out] */__FIVectorView_1_Microsoft__CManagement__CDeployment__CPackageVersionInfo * * result
+        );
+    END_INTERFACE
+    
+} __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectorsVtbl;
+
+interface __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors
+{
+    CONST_VTBL struct __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectorsVtbl *lpVtbl;
+};
+
+#ifdef COBJMACROS
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_QueryInterface(This,riid,ppvObject) \
+( (This)->lpVtbl->QueryInterface(This,riid,ppvObject) )
+
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_AddRef(This) \
+        ( (This)->lpVtbl->AddRef(This) )
+
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_Release(This) \
+        ( (This)->lpVtbl->Release(This) )
+
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_GetIids(This,iidCount,iids) \
+        ( (This)->lpVtbl->GetIids(This,iidCount,iids) )
+
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_GetRuntimeClassName(This,className) \
+        ( (This)->lpVtbl->GetRuntimeClassName(This,className) )
+
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_GetTrustLevel(This,trustLevel) \
+        ( (This)->lpVtbl->GetTrustLevel(This,trustLevel) )
+
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_GetCatalogPackageVector(This,result) \
+    ( (This)->lpVtbl->GetCatalogPackageVector(This,result) )
+
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_GetCatalogPackageVectorView(This,result) \
+    ( (This)->lpVtbl->GetCatalogPackageVectorView(This,result) )
+
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_GetPackageVersionInfoVector(This,result) \
+    ( (This)->lpVtbl->GetPackageVersionInfoVector(This,result) )
+
+#define __x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_GetPackageVersionInfoVectorView(This,result) \
+    ( (This)->lpVtbl->GetPackageVersionInfoVectorView(This,result) )
+
+
+#endif /* COBJMACROS */
+
+
+EXTERN_C const IID IID___x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors;
+#endif /* !defined(____x_ABI_CMicrosoft_CManagement_CDeployment_CIVectors_INTERFACE_DEFINED__) */
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+/*
+ *
  * Class Microsoft.Management.Deployment.AppCatalog
  *
  * Introduced to Microsoft.Management.Deployment.WindowsPackageManagerContract in version 1.0
@@ -7182,6 +8487,33 @@ extern const __declspec(selectany) _Null_terminated_ WCHAR RuntimeClass_Microsof
 #ifndef RUNTIMECLASS_Microsoft_Management_Deployment_ResultMatch_DEFINED
 #define RUNTIMECLASS_Microsoft_Management_Deployment_ResultMatch_DEFINED
 extern const __declspec(selectany) _Null_terminated_ WCHAR RuntimeClass_Microsoft_Management_Deployment_ResultMatch[] = L"Microsoft.Management.Deployment.ResultMatch";
+#endif
+#endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+
+/*
+ *
+ * Class Microsoft.Management.Deployment.Vectors
+ *
+ * Introduced to Microsoft.Management.Deployment.WindowsPackageManagerContract in version 1.0
+ *
+ *
+ * RuntimeClass can be activated.
+ *   Type can be activated via RoActivateInstance starting with version 1.0 of the Microsoft.Management.Deployment.WindowsPackageManagerContract API contract
+ *
+ * Class implements the following interfaces:
+ *    Microsoft.Management.Deployment.IVectors ** Default Interface **
+ *
+ * Class Threading Model:  Both Single and Multi Threaded Apartment
+ *
+ * Class Marshaling Behavior:  Agile - Class is agile
+ *
+ */
+#if MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
+
+#ifndef RUNTIMECLASS_Microsoft_Management_Deployment_Vectors_DEFINED
+#define RUNTIMECLASS_Microsoft_Management_Deployment_Vectors_DEFINED
+extern const __declspec(selectany) _Null_terminated_ WCHAR RuntimeClass_Microsoft_Management_Deployment_Vectors[] = L"Microsoft.Management.Deployment.Vectors";
 #endif
 #endif // MICROSOFT_MANAGEMENT_DEPLOYMENT_WINDOWSPACKAGEMANAGERCONTRACT_VERSION >= 0x10000
 

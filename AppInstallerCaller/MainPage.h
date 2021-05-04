@@ -14,6 +14,7 @@ namespace winrt::AppInstallerCaller::implementation
         MainPage();
         //Windows::Foundation::Collections::IObservableVector<Deployment::AppCatalog> AppCatalogs();
         Windows::Foundation::Collections::IObservableVector<Deployment::AppCatalog> AppCatalogs();
+        Windows::Foundation::Collections::IObservableVector<Deployment::CatalogPackage> InstalledApps();
 
         void InitializeUI();
         void FindSourcesButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
@@ -23,6 +24,8 @@ namespace winrt::AppInstallerCaller::implementation
         void SearchButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
 
         Windows::Foundation::IAsyncAction GetSources(winrt::Windows::UI::Xaml::Controls::Button button);
+        Windows::Foundation::IAsyncAction GetInstalledPackages(winrt::Windows::UI::Xaml::Controls::Button button);
+
         Windows::Foundation::IAsyncAction InitializeInstallUI(
             std::wstring installAppId,
             winrt::Windows::UI::Xaml::Controls::Button installButton,
@@ -42,6 +45,7 @@ namespace winrt::AppInstallerCaller::implementation
 
     private:
         Windows::Foundation::Collections::IObservableVector<Deployment::AppCatalog> m_appCatalogs;
+        Windows::Foundation::Collections::IObservableVector<Deployment::CatalogPackage> m_installedApps;
         Windows::Foundation::IAsyncOperationWithProgress<Deployment::InstallResult, Deployment::InstallProgress> m_installPackageOperation;
         std::wstring m_installAppId;
 

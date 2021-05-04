@@ -32,5 +32,15 @@
         <ProgressBar x:Name="installProgressBar" Value="0" Maximum="100" Width="200px" Margin="12" ></ProgressBar>
         <TextBlock x:Name="installStatusText" Text="" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+            <TextBlock Margin="0 12 0 0">Installed apps</TextBlock>
+            <ListBox x:Name="installedListBox" ItemsSource="{x:Bind InstalledApps}" SelectionMode="Multiple" MaxWidth="300" MaxHeight="400" MinHeight="50" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="deployment:CatalogPackage">
+                        <TextBlock Text="{x:Bind Name, Mode=OneWay}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListBox>
+        </StackPanel>
     </StackPanel>
 </Page>

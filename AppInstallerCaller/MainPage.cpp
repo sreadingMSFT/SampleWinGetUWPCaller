@@ -14,8 +14,6 @@ using namespace std::chrono_literals;
 //using namespace winrt::Microsoft::Management::Deployment::Client;
 using namespace winrt::Microsoft::Management::Deployment;
 
-GUID CLSID_WinGet = { 0xC53A4F16, 0x787E, 0x42A4, { 0xB3, 0x04, 0x29, 0xEF, 0xFB, 0x4B, 0xF5, 0x97 } };
-
 namespace winrt
 {
     using namespace Windows::UI::Xaml;
@@ -43,6 +41,7 @@ namespace winrt::AppInstallerCaller::implementation
     {
         InitializeComponent();
         m_appCatalogs = winrt::single_threaded_observable_vector<AppCatalog>();
+        m_installedApps = winrt::single_threaded_observable_vector<CatalogPackage>();
         InitializeUI();
     }
         
@@ -235,6 +234,25 @@ namespace winrt::AppInstallerCaller::implementation
         co_return;
     }
 
+    IAsyncAction MainPage::GetInstalledPackages(winrt::Windows::UI::Xaml::Controls::Button button)
+    {
+        co_await winrt::resume_background();
+
+        AppInstaller appInstaller = CreateAppInstaller();
+        AppCatalog installedCatalog{ appInstaller.GetAppCatalog(PredefinedAppCatalog::InstalledPackages) };
+        installedCatalog.OpenAsync().get();
+
+        FindPackagesOptions findPackagesOptions = CreateFindPackagesOptions();
+        FindPackagesResult findResult = installedCatalog.FindPackagesAsync(findPackagesOptions).get();
+
+        co_await winrt::resume_foreground(button.Dispatcher());
+        for (uint32_t i = 0; i < findResult.Matches().Size(); i++)
+        {
+            m_installedApps.Append(findResult.Matches().GetAt(i).CatalogPackage());
+        }
+        co_return;
+    }
+
     IAsyncAction MainPage::StartInstall(
         winrt::Windows::UI::Xaml::Controls::Button installButton,
         winrt::Windows::UI::Xaml::Controls::Button cancelButton,
@@ -265,7 +283,7 @@ namespace winrt::AppInstallerCaller::implementation
         winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar,
         winrt::Windows::UI::Xaml::Controls::TextBlock statusText)
     {
-        int32_t selectedIndex = catalogsListBox().SelectedIndex();
+        /*int32_t selectedIndex = catalogsListBox().SelectedIndex();
         co_await winrt::resume_background();
 
         //auto selected = catalogsListBox().SelectedItems();
@@ -291,7 +309,8 @@ namespace winrt::AppInstallerCaller::implementation
             co_await winrt::resume_foreground(button.Dispatcher());
             button.IsEnabled(false);
             statusText.Text(L"No app found with that id.");
-        }
+        }*/
+        co_return;
     }
 
     IAsyncOperation<CatalogPackage> MainPage::FindPackage()
@@ -355,6 +374,7 @@ namespace winrt::AppInstallerCaller::implementation
     {
         m_installAppId = L"Microsoft.VSCode";
         GetSources(installButton());
+        GetInstalledPackages(installButton());
         InitializeInstallUI(m_installAppId, installButton(), cancelButton(), installProgressBar(), installStatusText());
     }
     
@@ -437,10 +457,15 @@ namespace winrt::AppInstallerCaller::implementation
     Windows::Foundation::Collections::IObservableVector<Microsoft::Management::Deployment::AppCatalog> MainPage::AppCatalogs()
     {
         return m_appCatalogs;
+    }    
+    Windows::Foundation::Collections::IObservableVector<Microsoft::Management::Deployment::CatalogPackage> MainPage::InstalledApps()
+    {
+        return m_installedApps;
     }
 
-    /*
-    */
+
+   
+    
 
 
     //PackageUniqueId uniqueId{ L"winget", L"VideoLAN.VLC", L"", L"" };
