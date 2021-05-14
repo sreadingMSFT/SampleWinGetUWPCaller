@@ -5,13 +5,11 @@
 
 #pragma region Added code for calling appinstaller
 #include <wrl.h>
-//#include <winrt\Microsoft.Management.Deployment.Client.h>
-#include "GeneratedFromServer\Microsoft.Management.Deployment.h"
+#include <winrt/Microsoft.Management.Deployment.h>
 #include <winrt/Windows.UI.Core.h>
 
 using namespace Microsoft::WRL;
 using namespace std::chrono_literals;
-//using namespace winrt::Microsoft::Management::Deployment::Client;
 using namespace winrt::Microsoft::Management::Deployment;
 
 namespace winrt
@@ -21,11 +19,6 @@ namespace winrt
     using namespace Windows::Foundation::Collections;
 }
 
-namespace abi
-{
-    using namespace ABI::Windows::Foundation;
-    using namespace ABI::Microsoft::Management::Deployment;
-};
 #pragma endregion
 
 const CLSID CLSID_AppInstaller = { 0xC53A4F16, 0x787E, 0x42A4, 0xB3, 0x04, 0x29, 0xEF, 0xFB, 0x4B, 0xF5, 0x97 };  //C53A4F16-787E-42A4-B304-29EFFB4BF597
@@ -44,27 +37,21 @@ namespace winrt::AppInstallerCaller::implementation
         m_installedApps = winrt::single_threaded_observable_vector<CatalogPackage>();
         InitializeUI();
     }
-        
-    template<typename TOutput> TOutput ActivateByCoCreate(REFCLSID rclsid) {
-        winrt::com_ptr<::IInspectable> result;
-        check_hresult(::CoCreateInstance(rclsid, nullptr, CLSCTX_LOCAL_SERVER, IID_PPV_ARGS(&result)));
-        return result.as<TOutput>();
-    }
 
     AppInstaller CreateAppInstaller() {
-        return ActivateByCoCreate<AppInstaller>(CLSID_AppInstaller);
+        return winrt::create_instance<AppInstaller>(CLSID_AppInstaller, CLSCTX_LOCAL_SERVER);
     }
     InstallOptions CreateInstallOptions() {
-        return ActivateByCoCreate<InstallOptions>(CLSID_InstallOptions);
+        return winrt::create_instance<InstallOptions>(CLSID_InstallOptions, CLSCTX_LOCAL_SERVER);
     }
     FindPackagesOptions CreateFindPackagesOptions() {
-        return ActivateByCoCreate<FindPackagesOptions>(CLSID_FindPackagesOptions);
+        return winrt::create_instance<FindPackagesOptions>(CLSID_FindPackagesOptions, CLSCTX_LOCAL_SERVER);
     }
     GetCompositeAppCatalogOptions CreateGetCompositeAppCatalogOptions() {
-        return ActivateByCoCreate<GetCompositeAppCatalogOptions>(CLSID_GetCompositeAppCatalogOptions);
+        return winrt::create_instance<GetCompositeAppCatalogOptions>(CLSID_GetCompositeAppCatalogOptions, CLSCTX_LOCAL_SERVER);
     }
     PackageMatchFilter CreatePackageMatchFilter() {
-        return ActivateByCoCreate<PackageMatchFilter>(CLSID_PackageMatchFilter);
+        return winrt::create_instance<PackageMatchFilter>(CLSID_PackageMatchFilter, CLSCTX_LOCAL_SERVER);
     }
 
     IAsyncOperation<AppCatalog> FindSource(std::wstring packageSource)
@@ -109,6 +96,7 @@ namespace winrt::AppInstallerCaller::implementation
         installOptions.AppInstallScope(AppInstallScope::User);
         installOptions.CatalogPackage(package);
         installOptions.AppInstallMode(AppInstallMode::Silent);
+        installOptions.LogOutputPath(L"D:\\logs\\wingetlog.txt");
 
         return appInstaller.InstallPackageAsync(installOptions);
     }
@@ -219,7 +207,7 @@ namespace winrt::AppInstallerCaller::implementation
         AppInstaller appInstaller = CreateAppInstaller();
         //AppCatalog catalog{ appInstaller.GetAppCatalog(PredefinedAppCatalog::OpenWindowsCatalog) };
         //catalog.OpenAsync().get();
-        co_await winrt::resume_background();
+        //co_await winrt::resume_background();
         auto catalogs{ appInstaller.GetAppCatalogs() };
         for (uint32_t i = 0; i < catalogs.Size(); i++)
         {
@@ -232,23 +220,26 @@ namespace winrt::AppInstallerCaller::implementation
             m_appCatalogs.Append(catalogs.GetAt(i));
         }
         co_return;
-    }
-
+    } 
+    
     IAsyncAction MainPage::GetInstalledPackages(winrt::Windows::UI::Xaml::Controls::Button button)
     {
         co_await winrt::resume_background();
 
         AppInstaller appInstaller = CreateAppInstaller();
-        AppCatalog installedCatalog{ appInstaller.GetAppCatalog(PredefinedAppCatalog::InstalledPackages) };
+        AppCatalog installedCatalog{ appInstaller.GetAppCatalogByLocalAppCatalog(LocalAppCatalog::InstalledPackages) };
         installedCatalog.OpenAsync().get();
 
         FindPackagesOptions findPackagesOptions = CreateFindPackagesOptions();
-        FindPackagesResult findResult = installedCatalog.FindPackagesAsync(findPackagesOptions).get();
+        //findPackagesOptions.ResultLimit(1);
+        FindPackagesResult findResult{ co_await installedCatalog.FindPackagesAsync(findPackagesOptions) };
+        auto matches = findResult.Matches();
 
         co_await winrt::resume_foreground(button.Dispatcher());
-        for (uint32_t i = 0; i < findResult.Matches().Size(); i++)
+        m_installedApps.Clear();
+        for (uint32_t i = 0; i < matches.Size(); ++i)
         {
-            m_installedApps.Append(findResult.Matches().GetAt(i).CatalogPackage());
+            m_installedApps.Append(matches.GetAt(i).CatalogPackage());
         }
         co_return;
     }
@@ -283,10 +274,7 @@ namespace winrt::AppInstallerCaller::implementation
         winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar,
         winrt::Windows::UI::Xaml::Controls::TextBlock statusText)
     {
-        /*int32_t selectedIndex = catalogsListBox().SelectedIndex();
-        co_await winrt::resume_background();
-
-        //auto selected = catalogsListBox().SelectedItems();
+        int32_t selectedIndex = catalogsListBox().SelectedIndex();
         if (selectedIndex < 0)
         {
             co_await winrt::resume_foreground(button.Dispatcher());
@@ -294,6 +282,8 @@ namespace winrt::AppInstallerCaller::implementation
             statusText.Text(L"No catalog selected to search.");
             co_return;
         }
+
+        co_await winrt::resume_background();
         
         FindPackagesResult findPackagesResult{ TryFindPackageInCatalog(m_appCatalogs.GetAt(selectedIndex), m_installAppId).get() };
 
@@ -309,7 +299,7 @@ namespace winrt::AppInstallerCaller::implementation
             co_await winrt::resume_foreground(button.Dispatcher());
             button.IsEnabled(false);
             statusText.Text(L"No app found with that id.");
-        }*/
+        }
         co_return;
     }
 
@@ -337,14 +327,12 @@ namespace winrt::AppInstallerCaller::implementation
         AppInstaller appInstaller = CreateAppInstaller();
         AppCatalog windowsCatalog{ appInstaller.GetAppCatalog(PredefinedAppCatalog::OpenWindowsCatalog) };
         windowsCatalog.OpenAsync().get();
-        AppCatalog installingCatalog{ appInstaller.GetAppCatalog(PredefinedAppCatalog::InstallingPackages) };
-        installingCatalog.OpenAsync().get();
         // Get a composite catalog that allows search of both the OpenWindowsCatalog and InstallingPackages.
         // Creation of the AppInstaller has to use CoCreateInstance rather than normal winrt initialization since it's created 
         // by an out of proc com server.
         GetCompositeAppCatalogOptions getCompositeAppCatalogOptions = CreateGetCompositeAppCatalogOptions();
         getCompositeAppCatalogOptions.Catalogs().Append(windowsCatalog);
-        getCompositeAppCatalogOptions.Catalogs().Append(installingCatalog);
+        getCompositeAppCatalogOptions.LocalAppCatalog(LocalAppCatalog::InstallingPackages);
         // Specify that the search behavior is to only query for local packages.
         // Since the local catalog that is open is InstallingPackages, this will only find a result if installAppId is 
         // currently installing.
@@ -373,9 +361,8 @@ namespace winrt::AppInstallerCaller::implementation
     void MainPage::InitializeUI()
     {
         m_installAppId = L"Microsoft.VSCode";
-        GetSources(installButton());
-        GetInstalledPackages(installButton());
-        InitializeInstallUI(m_installAppId, installButton(), cancelButton(), installProgressBar(), installStatusText());
+        //GetSources(installButton());
+        //InitializeInstallUI(m_installAppId, installButton(), cancelButton(), installProgressBar(), installStatusText());
     }
     
     void MainPage::SearchButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
@@ -401,6 +388,14 @@ namespace winrt::AppInstallerCaller::implementation
             m_installPackageOperation.Cancel();
         }
     }
+    void MainPage::RefreshButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
+    {
+        GetInstalledPackages(installButton());
+    }
+    void MainPage::ClearInstalledButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
+    {
+        m_installedApps.Clear();
+    }
     IAsyncAction StartServer()
     {
         co_await winrt::resume_background();
@@ -424,11 +419,9 @@ namespace winrt::AppInstallerCaller::implementation
         AppInstaller appInstaller = CreateAppInstaller();
         AppCatalog windowsCatalog{ appInstaller.GetAppCatalog(PredefinedAppCatalog::OpenWindowsCatalog) };
         windowsCatalog.OpenAsync().get();
-        AppCatalog installingCatalog{ appInstaller.GetAppCatalog(PredefinedAppCatalog::InstallingPackages) };
-        installingCatalog.OpenAsync().get();
         GetCompositeAppCatalogOptions getCompositeAppCatalogOptions = CreateGetCompositeAppCatalogOptions();
         getCompositeAppCatalogOptions.Catalogs().Append(windowsCatalog);
-        getCompositeAppCatalogOptions.Catalogs().Append(installingCatalog);
+        getCompositeAppCatalogOptions.LocalAppCatalog(LocalAppCatalog::InstallingPackages);
         // Specify that the search behavior is to only query for local packages.
         // Since the local catalog that is open is InstallingPackages, this will only find a result if installAppId is 
         // currently installing.

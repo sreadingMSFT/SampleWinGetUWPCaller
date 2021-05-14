@@ -11,6 +11,7 @@
     <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12">
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
             <TextBlock Margin="0 12 0 0">Select catalogs to search</TextBlock>
+            <Button x:Name="findSourcesButton" Click="FindSourcesButtonClickHandler" HorizontalAlignment="Center" Margin="12">Find Catalogs.</Button>
             <ListBox x:Name="catalogsListBox" ItemsSource="{x:Bind AppCatalogs}" SelectionMode="Multiple" MaxWidth="300" MinHeight="50">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="deployment:AppCatalog">
@@ -20,8 +21,7 @@
             </ListBox>
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
-        <!--<Button x:Name="findSourcesButton" Click="FindSourcesButtonClickHandler" HorizontalAlignment="Center" Margin="12">Find Catalogs.</Button>-->
-        <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12">
+            <StackPanel Orientation="Horizontal" HorizontalAlignment="Center" VerticalAlignment="Center" Margin="12">
             <TextBox x:Name="catalogIdTextBox" Header="Find an app to install:" PlaceholderText="App Id"></TextBox>
             <Button x:Name="searchButton" Click="SearchButtonClickHandler" VerticalAlignment="Bottom">🔍</Button>
         </StackPanel>
@@ -33,8 +33,12 @@
         <TextBlock x:Name="installStatusText" Text="" HorizontalAlignment="Center"></TextBlock>
         </StackPanel>
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
-            <TextBlock Margin="0 12 0 0">Installed apps</TextBlock>
-            <ListBox x:Name="installedListBox" ItemsSource="{x:Bind InstalledApps}" SelectionMode="Multiple" MaxWidth="300" MaxHeight="400" MinHeight="50" ScrollViewer.VerticalScrollBarVisibility="Visible">
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Margin="0 12 0 0">Installed apps</TextBlock>
+                <Button x:Name="refreshButton" Click="RefreshButtonClickHandler" Margin="12 0 0 0" IsEnabled="True">Refresh</Button>
+                <Button x:Name="clearInstalledButton" Click="ClearInstalledButtonClickHandler" Margin="12 0 0 0" IsEnabled="True">Clear</Button>
+            </StackPanel>
+            <ListBox x:Name="installedListBox" ItemsSource="{x:Bind InstalledApps}" SelectionMode="Multiple" MaxWidth="300" MaxHeight="600" MinHeight="200" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="deployment:CatalogPackage">
                         <TextBlock Text="{x:Bind Name, Mode=OneWay}"/>

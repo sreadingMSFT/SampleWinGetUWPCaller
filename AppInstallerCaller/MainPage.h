@@ -12,7 +12,6 @@ namespace winrt::AppInstallerCaller::implementation
     struct MainPage : MainPageT<MainPage>
     {
         MainPage();
-        //Windows::Foundation::Collections::IObservableVector<Deployment::AppCatalog> AppCatalogs();
         Windows::Foundation::Collections::IObservableVector<Deployment::AppCatalog> AppCatalogs();
         Windows::Foundation::Collections::IObservableVector<Deployment::CatalogPackage> InstalledApps();
 
@@ -22,6 +21,8 @@ namespace winrt::AppInstallerCaller::implementation
         void InstallButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void CancelButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void SearchButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        void RefreshButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        void ClearInstalledButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
 
         Windows::Foundation::IAsyncAction GetSources(winrt::Windows::UI::Xaml::Controls::Button button);
         Windows::Foundation::IAsyncAction GetInstalledPackages(winrt::Windows::UI::Xaml::Controls::Button button);
@@ -48,6 +49,7 @@ namespace winrt::AppInstallerCaller::implementation
         Windows::Foundation::Collections::IObservableVector<Deployment::CatalogPackage> m_installedApps;
         Windows::Foundation::IAsyncOperationWithProgress<Deployment::InstallResult, Deployment::InstallProgress> m_installPackageOperation;
         std::wstring m_installAppId;
+        Deployment::AppInstaller m_appInstaller{ nullptr };
 
     };
 }
