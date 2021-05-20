@@ -14,7 +14,7 @@
             <Button x:Name="findSourcesButton" Click="FindSourcesButtonClickHandler" HorizontalAlignment="Center" Margin="12">Find Catalogs.</Button>
             <ListBox x:Name="catalogsListBox" ItemsSource="{x:Bind AppCatalogs}" SelectionMode="Multiple" MaxWidth="300" MinHeight="50">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="deployment:AppCatalog">
+                    <DataTemplate x:DataType="deployment:AppCatalogReference">
                         <TextBlock Text="{x:Bind Info.Name, Mode=OneWay}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
