@@ -12,7 +12,7 @@ namespace winrt::AppInstallerCaller::implementation
     struct MainPage : MainPageT<MainPage>
     {
         MainPage();
-        Windows::Foundation::Collections::IObservableVector<Deployment::AppCatalogReference> AppCatalogs();
+        Windows::Foundation::Collections::IObservableVector<Deployment::PackageCatalogReference> PackageCatalogs();
         Windows::Foundation::Collections::IObservableVector<Deployment::CatalogPackage> InstalledApps();
 
         void InitializeUI();
@@ -45,11 +45,11 @@ namespace winrt::AppInstallerCaller::implementation
         Windows::Foundation::IAsyncOperation<Deployment::CatalogPackage> FindPackageAsync();
 
     private:
-        Windows::Foundation::Collections::IObservableVector<Deployment::AppCatalogReference> m_appCatalogs;
-        Windows::Foundation::Collections::IObservableVector<Deployment::CatalogPackage> m_installedApps;
+        Windows::Foundation::Collections::IObservableVector<Deployment::PackageCatalogReference> m_packageCatalogs;
+        Windows::Foundation::Collections::IObservableVector<Deployment::CatalogPackage> m_installedPackages;
         Windows::Foundation::IAsyncOperationWithProgress<Deployment::InstallResult, Deployment::InstallProgress> m_installPackageOperation;
         std::wstring m_installAppId;
-        Deployment::AppInstaller m_appInstaller{ nullptr };
+        Deployment::PackageInstaller m_packageInstaller{ nullptr };
 
     };
 }

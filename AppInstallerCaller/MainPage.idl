@@ -4,7 +4,7 @@ namespace AppInstallerCaller
     runtimeclass MainPage : Windows.UI.Xaml.Controls.Page
     {
         MainPage();
-        Windows.Foundation.Collections.IObservableVector<Microsoft.Management.Deployment.AppCatalogReference> AppCatalogs{ get; };
+        Windows.Foundation.Collections.IObservableVector<Microsoft.Management.Deployment.PackageCatalogReference> PackageCatalogs{ get; };
         Windows.Foundation.Collections.IObservableVector<Microsoft.Management.Deployment.CatalogPackage> InstalledApps{ get; };
     }
 }

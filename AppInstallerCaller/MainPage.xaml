@@ -12,9 +12,9 @@
         <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
             <TextBlock Margin="0 12 0 0">Select catalogs to search</TextBlock>
             <Button x:Name="findSourcesButton" Click="FindSourcesButtonClickHandler" HorizontalAlignment="Center" Margin="12">Find Catalogs.</Button>
-            <ListBox x:Name="catalogsListBox" ItemsSource="{x:Bind AppCatalogs}" SelectionMode="Multiple" MaxWidth="300" MinHeight="50">
+            <ListBox x:Name="catalogsListBox" ItemsSource="{x:Bind PackageCatalogs}" SelectionMode="Multiple" MaxWidth="300" MinHeight="50">
                 <ItemsControl.ItemTemplate>
-                    <DataTemplate x:DataType="deployment:AppCatalogReference">
+                    <DataTemplate x:DataType="deployment:PackageCatalogReference">
                         <TextBlock Text="{x:Bind Info.Name, Mode=OneWay}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
