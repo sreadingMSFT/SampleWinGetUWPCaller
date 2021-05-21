@@ -42,7 +42,7 @@ namespace winrt::AppInstallerCaller::implementation
             winrt::Windows::UI::Xaml::Controls::Button button,
             winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar,
             winrt::Windows::UI::Xaml::Controls::TextBlock statusText);
-        Windows::Foundation::IAsyncOperation<Deployment::CatalogPackage> FindPackage();
+        Windows::Foundation::IAsyncOperation<Deployment::CatalogPackage> FindPackageAsync();
 
     private:
         Windows::Foundation::Collections::IObservableVector<Deployment::AppCatalogReference> m_appCatalogs;
