@@ -3,7 +3,7 @@
   <Identity
     Name="8b5526fe-0870-42b7-bde0-da8c4c7ea1aa"
     Publisher="CN=sreading"
-    Version="1.0.4.0" />
+    Version="1.0.7.0" />
   <mp:PhoneIdentity PhoneProductId="8b5526fe-0870-42b7-bde0-da8c4c7ea1aa" PhonePublisherId="00000000-0000-0000-0000-000000000000"/>
   <Properties>
     <DisplayName>AppInstallerCaller</DisplayName>

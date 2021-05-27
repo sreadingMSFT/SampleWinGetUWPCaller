@@ -41,7 +41,7 @@
             <ListBox x:Name="installedListBox" ItemsSource="{x:Bind InstalledApps}" SelectionMode="Multiple" MaxWidth="300" MaxHeight="600" MinHeight="200" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="deployment:CatalogPackage">
-                        <TextBlock Text="{x:Bind Name, Mode=OneWay}"/>
+                        <TextBlock Text="{x:Bind Id, Mode=OneWay}"/>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ListBox>

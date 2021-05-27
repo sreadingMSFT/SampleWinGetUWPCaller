@@ -49,7 +49,7 @@ namespace winrt::AppInstallerCaller::implementation
         Windows::Foundation::Collections::IObservableVector<Deployment::CatalogPackage> m_installedPackages;
         Windows::Foundation::IAsyncOperationWithProgress<Deployment::InstallResult, Deployment::InstallProgress> m_installPackageOperation;
         std::wstring m_installAppId;
-        Deployment::PackageInstaller m_packageInstaller{ nullptr };
+        Deployment::PackageManager m_packageManager{ nullptr };
 
     };
 }
