@@ -115,7 +115,7 @@ namespace winrt::AppInstallerCaller::implementation
         winrt::Windows::UI::Xaml::Controls::TextBlock statusText)
     {
         co_await winrt::resume_foreground(progressBar.Dispatcher());
-        progressBar.Value(progress.DownloadProgress);
+        progressBar.Value(progress.DownloadProgress*100);
 
         std::wstring downloadText{ L"Downloading. " };
         switch (progress.State)
