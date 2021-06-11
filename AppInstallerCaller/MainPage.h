@@ -16,6 +16,7 @@ namespace winrt::AppInstallerCaller::implementation
         Windows::Foundation::Collections::IObservableVector<Deployment::CatalogPackage> InstalledApps();
 
         void InitializeUI();
+        void ToggleDevButtonClicked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void FindSourcesButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void StartServerButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void InstallButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
@@ -45,11 +46,24 @@ namespace winrt::AppInstallerCaller::implementation
         Windows::Foundation::IAsyncOperation<Deployment::CatalogPackage> FindPackageAsync();
 
     private:
+        Deployment::PackageManager CreatePackageManager();
+        Deployment::InstallOptions CreateInstallOptions();
+        Deployment::FindPackagesOptions CreateFindPackagesOptions();
+        Deployment::CreateCompositePackageCatalogOptions CreateCreateCompositePackageCatalogOptions();
+        Deployment::PackageMatchFilter CreatePackageMatchFilter();
+
+        Windows::Foundation::IAsyncOperation<Deployment::FindPackagesResult> TryFindPackageInCatalogAsync(Deployment::PackageCatalog catalog, std::wstring packageId);
+        Windows::Foundation::IAsyncOperation<Deployment::CatalogPackage> FindPackageInCatalogAsync(Deployment::PackageCatalog catalog, std::wstring packageId);
+        Windows::Foundation::IAsyncOperationWithProgress<Deployment::InstallResult, Deployment::InstallProgress> InstallPackage(Deployment::CatalogPackage package);
+        Windows::Foundation::IAsyncOperation<Deployment::PackageCatalog> FindSourceAsync(std::wstring packageSource);
+        Windows::Foundation::IAsyncAction StartServer();
+
         Windows::Foundation::Collections::IObservableVector<Deployment::PackageCatalogReference> m_packageCatalogs;
         Windows::Foundation::Collections::IObservableVector<Deployment::CatalogPackage> m_installedPackages;
         Windows::Foundation::IAsyncOperationWithProgress<Deployment::InstallResult, Deployment::InstallProgress> m_installPackageOperation;
         std::wstring m_installAppId;
         Deployment::PackageManager m_packageManager{ nullptr };
+        bool m_useDev = false;
 
     };
 }

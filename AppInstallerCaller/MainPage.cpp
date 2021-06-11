@@ -27,6 +27,12 @@ const CLSID CLSID_FindPackagesOptions = { 0x572DED96, 0x9C60, 0x4526, { 0x8F, 0x
 const CLSID CLSID_PackageMatchFilter = { 0xD02C9DAF, 0x99DC, 0x429C, { 0xB5, 0x03, 0x4E, 0x50, 0x4E, 0x4A, 0xB0, 0x00 } }; //D02C9DAF-99DC-429C-B503-4E504E4AB000
 const CLSID CLSID_CreateCompositePackageCatalogOptions = { 0x526534B8, 0x7E46, 0x47C8, { 0x84, 0x16, 0xB1, 0x68, 0x5C, 0x32, 0x7D, 0x37 } }; //526534B8-7E46-47C8-8416-B1685C327D37
 
+const CLSID CLSID_PackageManager2 = { 0xE65C7D5A, 0x95AF, 0x4A98, { 0xBE, 0x5F, 0xA7, 0x93, 0x02, 0x9C, 0xEB, 0x56 } };  //E65C7D5A-95AF-4A98-BE5F-A793029CEB56
+const CLSID CLSID_InstallOptions2 = { 0x05F7019A, 0x8FAC, 0x4422, 0xBC, 0xD5, 0x4C, 0xB3, 0x4F, 0xFB, 0x44, 0xA8 };  //05F7019A-8FAC-4422-BCD5-4CB34FFB44A8
+const CLSID CLSID_FindPackagesOptions2 = { 0x2CAD6C15, 0xDF8E, 0x49DD, { 0xA7, 0x48, 0x96, 0xAD, 0xE0, 0xFE, 0x31, 0xB7 } }; //2CAD6C15-DF8E-49DD-A748-96ADE0FE31B7
+const CLSID CLSID_PackageMatchFilter2 = { 0xADBF3B4A, 0xDB8A, 0x496C, { 0xA5, 0x79, 0x62, 0xB5, 0x8F, 0x5F, 0xB1, 0x3F } }; //ADBF3B4A-DB8A-496C-A579-62B58F5FB13F
+const CLSID CLSID_CreateCompositePackageCatalogOptions2 = { 0x6444B10D, 0xFE84, 0x430F, { 0x93, 0x2B, 0x3D, 0x4F, 0xE5, 0x19, 0x5B, 0xDF } }; //6444B10D-FE84-430F-932B-3D4FE5195BDF
+
 
 namespace winrt::AppInstallerCaller::implementation
 {
@@ -38,23 +44,43 @@ namespace winrt::AppInstallerCaller::implementation
         InitializeUI();
     }
 
-    PackageManager CreatePackageManager() {
+    PackageManager MainPage::CreatePackageManager() {
+        if (m_useDev)
+        {
+            return winrt::create_instance<PackageManager>(CLSID_PackageManager2, CLSCTX_ALL);
+        }
         return winrt::create_instance<PackageManager>(CLSID_PackageManager, CLSCTX_ALL);
     }
-    InstallOptions CreateInstallOptions() {
+    InstallOptions MainPage::CreateInstallOptions() {
+        if (m_useDev)
+        {
+            return winrt::create_instance<InstallOptions>(CLSID_InstallOptions2, CLSCTX_ALL);
+        }
         return winrt::create_instance<InstallOptions>(CLSID_InstallOptions, CLSCTX_ALL);
     }
-    FindPackagesOptions CreateFindPackagesOptions() {
+    FindPackagesOptions MainPage::CreateFindPackagesOptions() {
+        if (m_useDev)
+        {
+            return winrt::create_instance<FindPackagesOptions>(CLSID_FindPackagesOptions2, CLSCTX_ALL);
+        }
         return winrt::create_instance<FindPackagesOptions>(CLSID_FindPackagesOptions, CLSCTX_ALL);
     }
-    CreateCompositePackageCatalogOptions CreateCreateCompositePackageCatalogOptions() {
+    CreateCompositePackageCatalogOptions MainPage::CreateCreateCompositePackageCatalogOptions() {
+        if (m_useDev)
+        {
+            return winrt::create_instance<CreateCompositePackageCatalogOptions>(CLSID_CreateCompositePackageCatalogOptions2, CLSCTX_ALL);
+        }
         return winrt::create_instance<CreateCompositePackageCatalogOptions>(CLSID_CreateCompositePackageCatalogOptions, CLSCTX_ALL);
     }
-    PackageMatchFilter CreatePackageMatchFilter() {
+    PackageMatchFilter MainPage::CreatePackageMatchFilter() {
+        if (m_useDev)
+        {
+            return winrt::create_instance<PackageMatchFilter>(CLSID_PackageMatchFilter2, CLSCTX_ALL);
+        }
         return winrt::create_instance<PackageMatchFilter>(CLSID_PackageMatchFilter, CLSCTX_ALL);
     }
 
-    IAsyncOperation<PackageCatalog> FindSourceAsync(std::wstring packageSource)
+    IAsyncOperation<PackageCatalog> MainPage::FindSourceAsync(std::wstring packageSource)
     {
         PackageManager packageManager = CreatePackageManager();
         PackageCatalogReference catalogRef{ packageManager.GetPackageCatalogByName(packageSource) };
@@ -67,7 +93,7 @@ namespace winrt::AppInstallerCaller::implementation
         }
     }
 
-    IAsyncOperation<FindPackagesResult> TryFindPackageInCatalogAsync(PackageCatalog catalog, std::wstring packageId)
+    IAsyncOperation<FindPackagesResult> MainPage::TryFindPackageInCatalogAsync(PackageCatalog catalog, std::wstring packageId)
     {
         FindPackagesOptions findPackagesOptions = CreateFindPackagesOptions();
         PackageMatchFilter filter = CreatePackageMatchFilter();
@@ -77,7 +103,7 @@ namespace winrt::AppInstallerCaller::implementation
         findPackagesOptions.Filters().Append(filter);
         return catalog.FindPackagesAsync(findPackagesOptions);
     }
-    IAsyncOperation<CatalogPackage> FindPackageInCatalogAsync(PackageCatalog catalog, std::wstring packageId)
+    IAsyncOperation<CatalogPackage> MainPage::FindPackageInCatalogAsync(PackageCatalog catalog, std::wstring packageId)
     {
         FindPackagesOptions findPackagesOptions = CreateFindPackagesOptions();
         PackageMatchFilter filter = CreatePackageMatchFilter();
@@ -95,7 +121,7 @@ namespace winrt::AppInstallerCaller::implementation
         co_return matches.GetAt(0).CatalogPackage();
     }
 
-    IAsyncOperationWithProgress<InstallResult, InstallProgress> InstallPackage(CatalogPackage package)
+    IAsyncOperationWithProgress<InstallResult, InstallProgress> MainPage::InstallPackage(CatalogPackage package)
     {
         PackageManager packageManager = CreatePackageManager();
         InstallOptions installOptions = CreateInstallOptions();
@@ -249,9 +275,9 @@ namespace winrt::AppInstallerCaller::implementation
         {
             PackageCatalogReference selectedRemoteCatalogRef = m_packageCatalogs.GetAt(selectedIndex);
             CreateCompositePackageCatalogOptions createCompositePackageCatalogOptions = CreateCreateCompositePackageCatalogOptions();
-            createCompositePackageCatalogOptions.Catalogs().Append(selectedRemoteCatalogRef);
+            //createCompositePackageCatalogOptions.Catalogs().Append(selectedRemoteCatalogRef);
 
-            createCompositePackageCatalogOptions.CompositeSearchBehavior(CompositeSearchBehavior::RemotePackagesFromAllCatalogs);
+            createCompositePackageCatalogOptions.CompositeSearchBehavior(CompositeSearchBehavior::LocalCatalogs);
             installedSearchCatalogRef = packageManager.CreateCompositePackageCatalog(createCompositePackageCatalogOptions);
         }
 
@@ -347,32 +373,19 @@ namespace winrt::AppInstallerCaller::implementation
 
         // Get the remote catalog
         PackageCatalogReference selectedRemoteCatalogRef = m_packageCatalogs.GetAt(selectedIndex);
-        ConnectResult remoteConnectResult{ co_await selectedRemoteCatalogRef.ConnectAsync() };
-        PackageCatalog selectedRemoteCatalog = remoteConnectResult.PackageCatalog();
-        FindPackagesResult findPackagesResult{ TryFindPackageInCatalogAsync(selectedRemoteCatalog, m_installAppId).get() };
-
-        // Get the installed catalog
-        /*PackageManager packageManager = CreatePackageManager();
-        PackageCatalogReference installedCatalogRef{ packageManager.GetLocalPackageCatalog(LocalPackageCatalog::InstalledPackages) };
-        PackageCatalog installedCatalog = installedCatalogRef.ConnectAsync().get().PackageCatalog();
+        //ConnectResult remoteConnectResult{ co_await selectedRemoteCatalogRef.ConnectAsync() };
+        //PackageCatalog selectedRemoteCatalog = remoteConnectResult.PackageCatalog();
+        //FindPackagesResult findPackagesResult{ TryFindPackageInCatalogAsync(selectedRemoteCatalog, m_installAppId).get() };
 
         // Create the composite catalog
         CreateCompositePackageCatalogOptions createCompositePackageCatalogOptions = CreateCreateCompositePackageCatalogOptions();
-        for (auto catalogRef : m_packageCatalogs)
-        {
-            ConnectResult remoteConnectResult{ co_await catalogRef.ConnectAsync() };
-            PackageCatalog selectedRemoteCatalog = remoteConnectResult.PackageCatalog();
-            createCompositePackageCatalogOptions.Catalogs().Append(selectedRemoteCatalog);
-        }
-        //createCompositePackageCatalogOptions.Catalogs().Append(selectedRemoteCatalog);
-        createCompositePackageCatalogOptions.LocalPackageCatalog(installedCatalog);
-        createCompositePackageCatalogOptions.CompositeSearchBehavior(CompositeSearchBehavior::AllCatalogs);
+        createCompositePackageCatalogOptions.Catalogs().Append(selectedRemoteCatalogRef);
+        PackageManager packageManager = CreatePackageManager();
         PackageCatalogReference catalogRef{ packageManager.CreateCompositePackageCatalog(createCompositePackageCatalogOptions) };
         ConnectResult connectResult{ co_await catalogRef.ConnectAsync() };
         PackageCatalog compositeCatalog = connectResult.PackageCatalog();
-
         // Do the search.
-        FindPackagesResult findPackagesResult{ TryFindPackageInCatalogAsync(compositeCatalog, m_installAppId).get() };*/
+        FindPackagesResult findPackagesResult{ TryFindPackageInCatalogAsync(compositeCatalog, m_installAppId).get() };
 
         //auto name = selectedRemoteCatalog.Info().Id();
         winrt::IVectorView<MatchResult> matches = findPackagesResult.Matches();
@@ -383,7 +396,7 @@ namespace winrt::AppInstallerCaller::implementation
             {
                 co_await winrt::resume_foreground(button.Dispatcher());
                 button.IsEnabled(false);
-                statusText.Text(version.Version());
+                statusText.Text(version.ProductCodes().GetAt(0));
             }
             else
             {
@@ -513,7 +526,7 @@ namespace winrt::AppInstallerCaller::implementation
     {
         m_installedPackages.Clear();
     }
-    IAsyncAction StartServer()
+    IAsyncAction MainPage::StartServer()
     {
         co_await winrt::resume_background();
         PackageManager packageManager = CreatePackageManager();
@@ -522,9 +535,16 @@ namespace winrt::AppInstallerCaller::implementation
     {
         StartServer();
     }
+    void MainPage::ToggleDevButtonClicked(IInspectable const&, RoutedEventArgs const&)
+    {
+        if (toggleDevButton().IsChecked())
+        {
+            m_useDev = toggleDevButton().IsChecked().Value();
+        }
+    }
     void MainPage::FindSourcesButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
     {
-        FindSourceAsync(L"asdfssf");
+        //FindSourceAsync(L"asdfssf");
         GetSources(installButton());
     }
 
