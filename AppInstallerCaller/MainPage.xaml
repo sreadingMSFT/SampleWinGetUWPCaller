@@ -42,7 +42,25 @@
             <ListBox x:Name="installedListBox" ItemsSource="{x:Bind InstalledApps}" SelectionMode="Multiple" MaxWidth="300" MaxHeight="600" MinHeight="200" ScrollViewer.VerticalScrollBarVisibility="Visible">
                 <ItemsControl.ItemTemplate>
                     <DataTemplate x:DataType="deployment:CatalogPackage">
-                        <TextBlock Text="{x:Bind Id, Mode=OneWay}"/>
+                        <TextBlock Text="{x:Bind Name, Mode=OneWay}"/>
+                    </DataTemplate>
+                </ItemsControl.ItemTemplate>
+            </ListBox>
+        </StackPanel>
+        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Top">
+            <StackPanel Orientation="Horizontal" >
+                <TextBlock Margin="0 12 0 0">Installing apps</TextBlock>
+                <Button x:Name="installingRefreshButton" Click="InstallingRefreshButtonClickHandler" Margin="12 0 0 0" IsEnabled="True">Refresh</Button>
+                <Button x:Name="installingClearInstalledButton" Click="ClearInstallingButtonClickHandler" Margin="12 0 0 0" IsEnabled="True">Clear</Button>
+            </StackPanel>
+            <ListBox x:Name="installingListBox" ItemsSource="{x:Bind InstallingPackages}" SelectionMode="Multiple" MaxWidth="300" MaxHeight="600" MinHeight="200" ScrollViewer.VerticalScrollBarVisibility="Visible">
+                <ItemsControl.ItemTemplate>
+                    <DataTemplate x:DataType="local:InstallingPackageView">
+                        <StackPanel HorizontalAlignment="Center" VerticalAlignment="Center">
+                            <TextBlock Text="{x:Bind Package.Id, Mode=OneWay}"/>
+                            <ProgressBar Value="{x:Bind Progress, Mode=OneWay}" Maximum="100" Width="200px" Margin="12" ></ProgressBar>
+                            <TextBlock Text="{x:Bind StatusText, Mode=OneWay}" HorizontalAlignment="Center"></TextBlock>
+                        </StackPanel>
                     </DataTemplate>
                 </ItemsControl.ItemTemplate>
             </ListBox>

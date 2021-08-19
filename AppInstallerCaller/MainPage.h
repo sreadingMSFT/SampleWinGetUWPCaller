@@ -1,5 +1,6 @@
 ﻿#pragma once
 
+#include "InstallingPackageView.h"
 #include <winrt\Microsoft.Management.Deployment.h>
 //#include <winrt\Microsoft.Management.Deployment.Client.h>
 
@@ -14,6 +15,7 @@ namespace winrt::AppInstallerCaller::implementation
         MainPage();
         Windows::Foundation::Collections::IObservableVector<Deployment::PackageCatalogReference> PackageCatalogs();
         Windows::Foundation::Collections::IObservableVector<Deployment::CatalogPackage> InstalledApps();
+        Windows::Foundation::Collections::IObservableVector<winrt::AppInstallerCaller::InstallingPackageView> InstallingPackages();
 
         void InitializeUI();
         void ToggleDevButtonClicked(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
@@ -24,9 +26,12 @@ namespace winrt::AppInstallerCaller::implementation
         void SearchButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void RefreshButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
         void ClearInstalledButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        void InstallingRefreshButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
+        void ClearInstallingButtonClickHandler(Windows::Foundation::IInspectable const& sender, Windows::UI::Xaml::RoutedEventArgs const& args);
 
         Windows::Foundation::IAsyncAction GetSources(winrt::Windows::UI::Xaml::Controls::Button button);
         Windows::Foundation::IAsyncAction GetInstalledPackages(winrt::Windows::UI::Xaml::Controls::Button button);
+        Windows::Foundation::IAsyncAction GetInstallingPackages(winrt::Windows::UI::Xaml::Controls::Button button);
 
         Windows::Foundation::IAsyncAction InitializeInstallUI(
             std::wstring installAppId,
@@ -60,6 +65,7 @@ namespace winrt::AppInstallerCaller::implementation
 
         Windows::Foundation::Collections::IObservableVector<Deployment::PackageCatalogReference> m_packageCatalogs;
         Windows::Foundation::Collections::IObservableVector<Deployment::CatalogPackage> m_installedPackages;
+        Windows::Foundation::Collections::IObservableVector<winrt::AppInstallerCaller::InstallingPackageView> m_installingPackageViews;
         Windows::Foundation::IAsyncOperationWithProgress<Deployment::InstallResult, Deployment::InstallProgress> m_installPackageOperation;
         std::wstring m_installAppId;
         Deployment::PackageManager m_packageManager{ nullptr };

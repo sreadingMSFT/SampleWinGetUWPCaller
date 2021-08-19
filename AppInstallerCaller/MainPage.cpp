@@ -41,6 +41,7 @@ namespace winrt::AppInstallerCaller::implementation
         InitializeComponent();
         m_packageCatalogs = winrt::single_threaded_observable_vector<PackageCatalogReference>();
         m_installedPackages = winrt::single_threaded_observable_vector<CatalogPackage>();
+        m_installingPackageViews = winrt::single_threaded_observable_vector<winrt::AppInstallerCaller::InstallingPackageView>();
     }
 
     PackageManager MainPage::CreatePackageManager() {
@@ -246,14 +247,15 @@ namespace winrt::AppInstallerCaller::implementation
 
         PackageManager packageManager = CreatePackageManager();
         auto catalogs{ packageManager.GetPackageCatalogs() };
-        auto defaultCatalogRef{ packageManager.GetPredefinedPackageCatalog(PredefinedPackageCatalog::OpenWindowsCatalog) };
+        auto catalog{ packageManager.GetPredefinedPackageCatalog(PredefinedPackageCatalog::MicrosoftStore) };
         co_await winrt::resume_foreground(button.Dispatcher());
         m_packageCatalogs.Clear();
         for (uint32_t i = 0; i < catalogs.Size(); i++)
         {
             m_packageCatalogs.Append(catalogs.GetAt(i));
         }
-        m_packageCatalogs.Append(defaultCatalogRef);
+        m_packageCatalogs.Append(catalog);
+
         co_return;
     } 
     
@@ -282,6 +284,11 @@ namespace winrt::AppInstallerCaller::implementation
 
         ConnectResult connectResult{ co_await installedSearchCatalogRef.ConnectAsync() };
         PackageCatalog installedCatalog = connectResult.PackageCatalog();
+        if (!installedCatalog)
+        {
+            // Connect Error.
+            co_return;
+        }
 
         FindPackagesOptions findPackagesOptions = CreateFindPackagesOptions();
 
@@ -292,10 +299,68 @@ namespace winrt::AppInstallerCaller::implementation
         m_installedPackages.Clear();
         for (uint32_t i = 0; i < matches.Size(); ++i)
         {
-            m_installedPackages.Append(matches.GetAt(i).CatalogPackage());
+            // Filter to only packages that match the selectedCatalogRef
+            auto version = matches.GetAt(i).CatalogPackage().DefaultInstallVersion();
+            if (selectedIndex < 0 || (version && version.PackageCatalog().Info().Id() == m_packageCatalogs.GetAt(selectedIndex).Info().Id()))
+            {
+                m_installedPackages.Append(matches.GetAt(i).CatalogPackage());
+            }
         }
 
-      
+        co_return;
+    }
+    IAsyncAction MainPage::GetInstallingPackages(winrt::Windows::UI::Xaml::Controls::Button button)
+    {
+        int32_t selectedIndex = catalogsListBox().SelectedIndex();
+        co_await winrt::resume_background();
+
+        PackageManager packageManager = CreatePackageManager();
+
+        PackageCatalogReference installingSearchCatalogRef{ nullptr };
+
+        if (selectedIndex < 0)
+        {
+            // Installing package querying is only really useful if you know what Catalog you're interested in.
+            co_return;
+        }
+
+        installingSearchCatalogRef = packageManager.GetLocalPackageCatalog(LocalPackageCatalog::InstallingPackages);
+
+        PackageCatalogReference selectedRemoteCatalogRef = m_packageCatalogs.GetAt(selectedIndex);
+        ConnectResult remoteConnectResult{ co_await selectedRemoteCatalogRef.ConnectAsync() };
+        PackageCatalog selectedRemoteCatalog = remoteConnectResult.PackageCatalog();
+        if (!selectedRemoteCatalog)
+        {
+            co_return;
+        }
+
+        ConnectResult connectResult{ co_await installingSearchCatalogRef.ConnectAsync() };
+        PackageCatalog installingCatalog = connectResult.PackageCatalog();
+        if (!installingCatalog)
+        {
+            co_return;
+        }
+
+        FindPackagesOptions findPackagesOptions = CreateFindPackagesOptions();
+        FindPackagesResult findResult{ installingCatalog.FindPackages(findPackagesOptions) };
+        auto matches = findResult.Matches();
+
+        co_await winrt::resume_foreground(button.Dispatcher());
+       
+        m_installingPackageViews.Clear();
+        for (uint32_t i = 0; i < matches.Size(); ++i)
+        {
+            winrt::AppInstallerCaller::InstallingPackageView installingView;
+            installingView.Package(matches.GetAt(i).CatalogPackage());
+            auto installOperation = packageManager.GetInstallProgress(installingView.Package(), selectedRemoteCatalog.Info());
+            if (installOperation)
+            {
+                installingView.Dispatcher(button.Dispatcher());
+                installingView.AsyncOperation(installOperation);
+                m_installingPackageViews.Append(installingView);
+            }
+        }
+
         co_return;
     }
 
@@ -330,18 +395,11 @@ namespace winrt::AppInstallerCaller::implementation
             co_return;
         }
         FindPackagesResult findPackagesResult{ TryFindPackageInCatalogAsync(selectedRemoteCatalog, m_installAppId).get() };
-        FindPackagesResult findPackagesResult2{ TryFindPackageInCatalogAsync(selectedRemoteCatalog, L"VideoLAN.VLC").get() };
-
         winrt::IVectorView<MatchResult> matches = findPackagesResult.Matches();
         if (matches.Size() > 0)
         {
             m_installPackageOperation = InstallPackage(matches.GetAt(0).CatalogPackage());
             UpdateUIForInstall(m_installPackageOperation, installButton, cancelButton, progressBar, statusText);
-        }
-        winrt::IVectorView<MatchResult> matches2 = findPackagesResult2.Matches();
-        if (matches2.Size() > 0)
-        {
-            InstallPackage(matches2.GetAt(0).CatalogPackage());
         }
     }
 
@@ -370,6 +428,13 @@ namespace winrt::AppInstallerCaller::implementation
         PackageCatalogReference catalogRef{ packageManager.CreateCompositePackageCatalog(createCompositePackageCatalogOptions) };
         ConnectResult connectResult{ co_await catalogRef.ConnectAsync() };
         PackageCatalog compositeCatalog = connectResult.PackageCatalog();
+        if (!compositeCatalog)
+        {
+            co_await winrt::resume_foreground(button.Dispatcher());
+            button.IsEnabled(false);
+            statusText.Text(L"Failed to Connect to Catalog.");
+            co_return;
+        }
         // Do the search.
         FindPackagesResult findPackagesResult{ TryFindPackageInCatalogAsync(compositeCatalog, m_installAppId).get() };
 
@@ -407,6 +472,11 @@ namespace winrt::AppInstallerCaller::implementation
         PackageManager packageManager = CreatePackageManager();
         PackageCatalogReference catalogRef{ packageManager.GetPredefinedPackageCatalog(PredefinedPackageCatalog::OpenWindowsCatalog) };
         PackageCatalog catalog = catalogRef.ConnectAsync().get().PackageCatalog();
+        if (!catalog)
+        {
+            //Connect error.
+            co_return nullptr;
+        }
         co_return FindPackageInCatalogAsync(catalog, m_installAppId).get();
     }
     
@@ -441,6 +511,14 @@ namespace winrt::AppInstallerCaller::implementation
     {
         m_installedPackages.Clear();
     }
+    void MainPage::InstallingRefreshButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
+    {
+        GetInstallingPackages(installButton());
+    }
+    void MainPage::ClearInstallingButtonClickHandler(IInspectable const&, RoutedEventArgs const&)
+    {
+        m_installingPackageViews.Clear();
+    }
     IAsyncAction MainPage::StartServer()
     {
         co_await winrt::resume_background();
@@ -470,125 +548,10 @@ namespace winrt::AppInstallerCaller::implementation
     {
         return m_installedPackages;
     }
-
-
-    /*
-    * TODO: This has been removed from the api until InstallingPackages is implemented
-    IAsyncAction MainPage::InitializeInstallUI(
-        std::wstring installAppId,
-        winrt::Windows::UI::Xaml::Controls::Button installButton,
-        winrt::Windows::UI::Xaml::Controls::Button cancelButton,
-        winrt::Windows::UI::Xaml::Controls::ProgressBar progressBar,
-        winrt::Windows::UI::Xaml::Controls::TextBlock statusText)
+    Windows::Foundation::Collections::IObservableVector<winrt::AppInstallerCaller::InstallingPackageView> MainPage::InstallingPackages()
     {
-        co_await winrt::resume_background();
-        // Creation of the PackageManager has to use CoCreateInstance rather than normal winrt initialization since it's created
-        // by an out of proc com server.
-        PackageManager packageManager = CreatePackageManager();
-        PackageCatalogReference catalogRef{ packageManager.GetPredefinedPackageCatalog(PredefinedPackageCatalog::OpenWindowsCatalog) };
-        PackageCatalog windowsCatalog = catalogRef.ConnectAsync().get().PackageCatalog();
-        if (!windowsCatalog)
-        {
-            co_return;
-        }
-
-        PackageCatalogReference installedCatalogRef{ packageManager.GetLocalPackageCatalog(LocalPackageCatalog::InstallingPackages) };
-        PackageCatalog installedCatalog = installedCatalogRef.ConnectAsync().get().PackageCatalog();
-        if (!installedCatalog)
-        {
-            // A local catalog failing would be very unexpected, but checking for null as best practice.
-            co_return;
-        }
-        // Get a composite catalog that allows search of both the OpenWindowsCatalog and InstallingPackages.
-        // Creation of the PackageManager has to use CoCreateInstance rather than normal winrt initialization since it's created
-        // by an out of proc com server.
-        CreateCompositePackageCatalogOptions createCompositePackageCatalogOptions = CreateCreateCompositePackageCatalogOptions();
-        createCompositePackageCatalogOptions.Catalogs().Append(windowsCatalog);
-        createCompositePackageCatalogOptions.LocalPackageCatalog(installedCatalog);
-        // Specify that the search behavior is to only query for local packages.
-        // Since the local catalog that is open is InstallingPackages, this will only find a result if installAppId is
-        // currently installing.
-        createCompositePackageCatalogOptions.CompositeSearchBehavior(CompositeSearchBehavior::LocalCatalogs);
-        PackageCatalogReference compositeCatalogRef{ packageManager.CreateCompositePackageCatalog(createCompositePackageCatalogOptions) };
-        ConnectResult connectResult{ co_await compositeCatalogRef.ConnectAsync() };
-        PackageCatalog compositeCatalog = connectResult.PackageCatalog();
-
-        FindPackagesOptions findPackagesOptions = CreateFindPackagesOptions();
-        PackageMatchFilter filter;
-        filter.Field(PackageMatchField::Id);
-        filter.Option(PackageFieldMatchOption::Equals);
-        filter.Value(installAppId);
-        findPackagesOptions.Filters().Append(filter);
-        FindPackagesResult findPackagesResult{ compositeCatalog.FindPackagesAsync(findPackagesOptions).get() };
-        winrt::IVectorView<MatchResult> matches = findPackagesResult.Matches();
-        if (matches.Size() == 0)
-        {
-            co_return;
-        }
-        CatalogPackage package = matches.GetAt(0).CatalogPackage();
-
-        /*
-        * TODO: This has been removed from the api until it's implemented
-        if (package.IsInstalling())
-        {
-            m_installPackageOperation = packageManager.GetInstallProgress(package);
-            UpdateUIForInstall(m_installPackageOperation, installButton, cancelButton, progressBar, statusText);
-        }
+        return m_installingPackageViews;
     }
-    */
-    /*
-    * TODO: This has been removed from the api until it's implemented
-    IAsyncAction CancelInstall(
-        std::wstring installAppId)
-    {
-        co_await winrt::resume_background();
-        // Creation of the PackageManager has to use CoCreateInstance rather than normal winrt initialization since it's created
-        // by an out of proc com server.
-        PackageManager packageManager = CreatePackageManager();
-        PackageCatalogReference catalogRef{ packageManager.GetPredefinedPackageCatalog(PredefinedPackageCatalog::OpenWindowsCatalog) };
-        PackageCatalog windowsCatalog = catalogRef.Connect().PackageCatalog();
-        if (!windowsCatalog)
-        {
-            co_return;
-        }
-        PackageCatalogReference installedCatalogRef{ packageManager.GetLocalPackageCatalog(LocalPackageCatalog::InstallingPackages) };
-        PackageCatalog installedCatalog = installedCatalogRef.Connect().PackageCatalog();
-        if (!installedCatalog)
-        {
-            co_return;
-        }
-        CreateCompositePackageCatalogOptions createCompositePackageCatalogOptions = CreateCreateCompositePackageCatalogOptions();
-        createCompositePackageCatalogOptions.Catalogs().Append(windowsCatalog);
-        createCompositePackageCatalogOptions.LocalPackageCatalog(installedCatalog);
-        // Specify that the search behavior is to only query for local packages.
-        // Since the local catalog that is open is InstallingPackages, this will only find a result if installAppId is
-        // currently installing.
-        createCompositePackageCatalogOptions.CompositeSearchBehavior(CompositeSearchBehavior::InstallingPackages);
-        PackageCatalogReference compositeCatalogRef{ packageManager.CreateCompositePackageCatalog(createCompositePackageCatalogOptions) };
-        PackageCatalog compositeCatalog = compositeCatalogRef.Connect().PackageCatalog();
-        if (!compositeCatalog)
-        {
-            co_return;
-        }
 
-        FindPackagesOptions findPackagesOptions = CreateFindPackagesOptions();
-        PackageMatchFilter filter;
-        filter.Field(PackageMatchField::Id);
-        filter.Option(PackageFieldMatchOption::Equals);
-        filter.Value(installAppId);
-        findPackagesOptions.Filters().Append(filter);
-        FindPackagesResult findPackagesResult{ compositeCatalog.FindPackagesAsync(findPackagesOptions).get() };
-        winrt::IVectorView<MatchResult> matches = findPackagesResult.Matches();
-        CatalogPackage package = matches.GetAt(0).CatalogPackage();
-
-        /*
-        * TODO: This has been removed from the api until it's implemented
-        if (package.IsInstalling())
-        {
-            Windows::Foundation::IAsyncOperationWithProgress<InstallResult, InstallProgress> installOperation = packageManager.GetInstallProgress(package);
-            installOperation.Cancel();
-        }
-    }
-        */
-
+    
 }
