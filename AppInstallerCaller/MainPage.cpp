@@ -27,12 +27,11 @@ const CLSID CLSID_FindPackagesOptions = { 0x572DED96, 0x9C60, 0x4526, { 0x8F, 0x
 const CLSID CLSID_PackageMatchFilter = { 0xD02C9DAF, 0x99DC, 0x429C, { 0xB5, 0x03, 0x4E, 0x50, 0x4E, 0x4A, 0xB0, 0x00 } }; //D02C9DAF-99DC-429C-B503-4E504E4AB000
 const CLSID CLSID_CreateCompositePackageCatalogOptions = { 0x526534B8, 0x7E46, 0x47C8, { 0x84, 0x16, 0xB1, 0x68, 0x5C, 0x32, 0x7D, 0x37 } }; //526534B8-7E46-47C8-8416-B1685C327D37
 
-const CLSID CLSID_PackageManager2 = { 0xE65C7D5A, 0x95AF, 0x4A98, { 0xBE, 0x5F, 0xA7, 0x93, 0x02, 0x9C, 0xEB, 0x56 } };  //E65C7D5A-95AF-4A98-BE5F-A793029CEB56
-const CLSID CLSID_InstallOptions2 = { 0x05F7019A, 0x8FAC, 0x4422, 0xBC, 0xD5, 0x4C, 0xB3, 0x4F, 0xFB, 0x44, 0xA8 };  //05F7019A-8FAC-4422-BCD5-4CB34FFB44A8
-const CLSID CLSID_FindPackagesOptions2 = { 0x2CAD6C15, 0xDF8E, 0x49DD, { 0xA7, 0x48, 0x96, 0xAD, 0xE0, 0xFE, 0x31, 0xB7 } }; //2CAD6C15-DF8E-49DD-A748-96ADE0FE31B7
-const CLSID CLSID_PackageMatchFilter2 = { 0xADBF3B4A, 0xDB8A, 0x496C, { 0xA5, 0x79, 0x62, 0xB5, 0x8F, 0x5F, 0xB1, 0x3F } }; //ADBF3B4A-DB8A-496C-A579-62B58F5FB13F
-const CLSID CLSID_CreateCompositePackageCatalogOptions2 = { 0x6444B10D, 0xFE84, 0x430F, { 0x93, 0x2B, 0x3D, 0x4F, 0xE5, 0x19, 0x5B, 0xDF } }; //6444B10D-FE84-430F-932B-3D4FE5195BDF
-
+const CLSID CLSID_PackageManager2 = { 0x74CB3139, 0xB7C5, 0x4B9E, { 0x93, 0x88, 0xE6, 0x61, 0x6D, 0xEA, 0x28, 0x8C } };  //74CB3139-B7C5-4B9E-9388-E6616DEA288C
+const CLSID CLSID_InstallOptions2 = { 0x44FE0580, 0x62F7, 0x44D4, 0x9E, 0x91, 0xAA, 0x96, 0x14, 0xAB, 0x3E, 0x86 };  //44FE0580-62F7-44D4-9E91-AA9614AB3E86
+const CLSID CLSID_FindPackagesOptions2 = { 0x1BD8FF3A, 0xEC50, 0x4F69, { 0xAE, 0xEE, 0xDF, 0x4C, 0x9D, 0x3B, 0xAA, 0x96 } }; //1BD8FF3A-EC50-4F69-AEEE-DF4C9D3BAA96
+const CLSID CLSID_PackageMatchFilter2 = { 0x3F85B9F4, 0x487A, 0x4C48, { 0x90, 0x35, 0x29, 0x03, 0xF8, 0xA6, 0xD9, 0xE8 } }; //3F85B9F4-487A-4C48-9035-2903F8A6D9E8
+const CLSID CLSID_CreateCompositePackageCatalogOptions2 = { 0xEE160901, 0xB317, 0x4EA7, { 0x9C, 0xC6, 0x53, 0x55, 0xC6, 0xD7, 0xD8, 0xA7 } }; //EE160901-B317-4EA7-9CC6-5355C6D7D8A7
 
 namespace winrt::AppInstallerCaller::implementation
 {
@@ -342,7 +341,10 @@ namespace winrt::AppInstallerCaller::implementation
         }
 
         FindPackagesOptions findPackagesOptions = CreateFindPackagesOptions();
-        FindPackagesResult findResult{ installingCatalog.FindPackages(findPackagesOptions) };
+        //FindPackagesResult findResult{ installingCatalog.FindPackages(findPackagesOptions) };
+        //auto matches = findResult.Matches();
+
+        FindPackagesResult findResult{ TryFindPackageInCatalogAsync(selectedRemoteCatalog, m_installAppId).get() };
         auto matches = findResult.Matches();
 
         co_await winrt::resume_foreground(button.Dispatcher());
